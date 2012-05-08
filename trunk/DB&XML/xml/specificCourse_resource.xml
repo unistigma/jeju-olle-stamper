@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jejuOlle>
+	<course no="1" outline="r.res.1_outline.png">
+		<startPoint>
+			<jeju>
+				<list>
+					<item>1. 제주시외버스터미널로 간다</item>
+					<item>2. 서일주버스를 탄다(9:30 10:00 11:00 11:30)</item>
+				</list>
+			</jeju>
+			<seogwi>
+				<list>
+					<item>1. 서귀포시외버스터미널로 간다</item>
+					<item>2. 동일주버스를 탄다(9:30 10:00 11:00 11:30)</item>
+				</list>
+			</seogwi>
+		</startPoint>
+		<landMark>
+			<list>
+				<item>
+					<photo>R.res.1_landmark1.png</photo>
+					<title>시흥초등학교</title>
+					<comment>넓은 잔디를 가진 운동장을 구경하며 햇살을 맞이한다</comment>
+				</item>
+				<item>
+					<photo>R.res.1_landmark2.png</photo>
+					<title>성산일출봉</title>
+					<comment>최남단의 동쪽에서 일출을 볼수있다</comment>
+				</item>
+			</list>
+		</landMark>
+		<courseGeoPoint>
+			<item>R.res.1course_coords.xml<item>
+		</courseGeoPoint>
+		<stamp>
+			<startStamp geoPoint="33.477136, 126.895729" name="시흥초등학교">
+				<empty>R.res.1_startEmptyStamp.png</empty>
+				<stampable>R.res.1_startStampable.png</stampable>
+				<stamped>R.res.1_startStamped.png</stamped>
+			</startStamp>
+			<midStamp geoPoint="33.477283, 126.895131" name="목화휴게소 앞">
+				<empty>R.res.1_midEmptyStamp.png</empty>
+				<stampable>R.res.1_midStampable.png</stampable>
+				<stamped>R.res.1_midStamped.png</stamped>
+			</midStamp>
+			<endStamp geoPoint="33.476588, 126.893302" name="광치기해변">
+				<empty>R.res.1_endEmptyStamp.png</empty>
+				<stampable>R.res.1_endStampable.png</stampable>
+				<stamped>R.res.1_endStamped.png</stamped>
+			</endStamp>
+		</stamp>
+	</course>
+
+	<course no="2" outline="r.res.2_outline.png">
+	</course>
+
+	<course no="3" outline="r.res.3_outline.png">
+	</course>
+
+	<course no="4" outline="r.res.4_outline.png">
+	</course>
+
+	<course no="5" outline="r.res.5_outline.png">
+	</course>
+
+	<course no="6" outline="r.res.6_outline.png">
+	</course>
+
+	<course no="7" outline="r.res.7_outline.png">
+	</course>
+
+	<course no="8" outline="r.res.8_outline.png">
+	</course>
+
+	<course no="9" outline="r.res.9_outline.png">
+	</course>
+
+	<course no="10" outline="r.res.10_outline.png">
+	</course>
+
+	<course no="11" outline="r.res.11_outline.png">
+	</course>
+
+	<course no="12" outline="r.res.12_outline.png">
+	</course>
+
+	<course no="13" outline="r.res.13_outline.png">
+	</course>
+
+	<course no="14" outline="r.res.14_outline.png">
+	</course>
+
+	<course no="15" outline="r.res.15_outline.png">
+	</course>
+
+	<course no="16" outline="r.res.16_outline.png">
+	</course>
+
+	<course no="17" outline="r.res.17_outline.png">
+	</course>
+</jejuOlle>

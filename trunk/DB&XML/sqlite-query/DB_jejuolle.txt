@@ -1,0 +1,42 @@
+DB명 : jejuolle.db
+TABLE명 : olle_course_my_records, olle_course_geo_points, olle_stamp_geo_points
+
+---------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE olle_course_my_records ( _id INTEGER PRIMARY KEY AUTOINCREMENT,
+				      course_no INTEGER NOT NULL,
+				      finished INTEGER DEFAULT 0,
+				      start_time TEXT DEFAULT NULL,
+				      mid_time TEXT DEFAULT NULL,
+				      end_time TEXT DEFAULT NULL );
+
+INSERT INTO olle_course_my_records (course_no) VALUES ('1'), ('2'), ('3'), ('4'), ('5'), ('6'), ('7'), ('8'), ('9'), ('10'), 
+('11'), ('12'), ('13'), ('14'), ('15'), ('16'), ('17');
+
+---------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE olle_course_geo_points ( _id INTEGER PRIMARY KEY AUTOINCREMENT,
+				      course_no INTEGER NOT NULL,
+				      latitude TEXT NOT NULL,
+				      longitude TEXT NOT NULL );
+
+INSERT INTO olle_course_geo_points (course_no, latitude, longitude) VALUES
+('1', '33.477179', '126.895889'),
+('1', '33.477136', '126.895729'),
+('1', '33.477096', '126.895633'),
+('1', '33.477066', '126.895553'),
+('1', '33.477056', '126.895505');
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE olle_stamp_geo_points ( _id INTEGER PRIMARY KEY AUTOINCREMENT,
+				     course_no INTEGER NOT NULL,
+				     which_stamp INTEGER NOT NULL,
+				     latitude TEXT NOT NULL,
+				     longitude TEXT NOT NULL );
+
+INSERT INTO olle_course_geo_points (course_no, which_stamp, latitude, longitude) VALUES
+('1', '0', '33.477179,', '126.895889'), ('1', '1', '33.477096', '126.895633'), ('1', '2', '33.477056', '126.895505'),
+('2', '0', '33.445179,', '126.823489'), ('2', '1', '33.412226', '126.811113'), ('2', '2', '33.471116', '126.112345'),
+...
