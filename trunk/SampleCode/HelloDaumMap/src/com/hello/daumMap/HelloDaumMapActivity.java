@@ -8,6 +8,7 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPoint.GeoCoordinate;
 import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
+import android.R;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +23,9 @@ MapView.MapViewEventListener,
 MapView.CurrentLocationEventListener,                   
 MapView.POIItemEventListener
 {
+	public static final String DAUM_MAPS_APIKEY = "59ecd91767ce681f0a6051aa7af6f03cf65e9f54";
 	public static final String LOG_TAG = "DaumMap";
+	
 	MapView mapView;
     /** Called when the activity is first created. */
     @Override
@@ -32,7 +35,7 @@ MapView.POIItemEventListener
         LinearLayout linearLayout = new LinearLayout(this);    
         mapView = new MapView(this);  
                 
-        mapView.setDaumMapApiKey(getResources().getString(R.string.DAUM_MMAPS_ANDROID_DEMO_APIKEY));
+        mapView.setDaumMapApiKey(DAUM_MAPS_APIKEY);
         mapView.setOpenAPIKeyAuthenticationResultListener(this);         
         mapView.setMapViewEventListener(this);       
         mapView.setCurrentLocationEventListener(this);       
