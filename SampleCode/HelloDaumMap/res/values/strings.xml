@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, HelloDaumMapActivity!</string>
+    <string name="app_name">HelloDaumMap</string>
+    <string name="DAUM_MMAPS_ANDROID_DEMO_APIKEY">59ecd91767ce681f0a6051aa7af6f03cf65e9f54</string>
+    
+</resources>
