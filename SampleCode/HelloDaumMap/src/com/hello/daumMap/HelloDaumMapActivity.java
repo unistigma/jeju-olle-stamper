@@ -8,7 +8,6 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPoint.GeoCoordinate;
 import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
-import android.R;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,7 +23,7 @@ MapView.CurrentLocationEventListener,
 MapView.POIItemEventListener
 {
 	public static final String DAUM_MAPS_APIKEY = "59ecd91767ce681f0a6051aa7af6f03cf65e9f54";
-	public static final String LOG_TAG = "DaumMap";
+	public static final String LOG_TAG = "DaumMap^_^";
 	
 	MapView mapView;
     /** Called when the activity is first created. */
@@ -53,8 +52,9 @@ MapView.POIItemEventListener
 //        drawPolylineWithDivPoints();
 //        drawPolylineWithAmountPoints();
         
-        //3. 현위치, 나침반 모드
-        setCurrentLocationTracking();
+        //3. 현위치, 나침반 모드 
+        //----> onMapViewInitialized 이벤트에서 처리
+        
                 
         linearLayout.addView(mapView);      
         setContentView(linearLayout);
@@ -114,6 +114,7 @@ MapView.POIItemEventListener
 
 	public void onMapViewInitialized(MapView arg0) {
 		// TODO Auto-generated method stub
+		setCurrentLocationTracking();
 		
 	}
 
@@ -230,7 +231,7 @@ MapView.POIItemEventListener
 		polyline1.setLineColor(Color.argb(128, 0, 0, 255));
 
 		GeoPointLoader gpl = new GeoPointLoader(this);
-		List<MapPoint> tempList = gpl.getCourseGeopoints(0);
+		List<MapPoint> tempList = gpl.getCourseGeopoints(1);
 		MapPoint[] mp = new MapPoint[tempList.size()];
 		mp = (MapPoint[])tempList.toArray(mp);
 
