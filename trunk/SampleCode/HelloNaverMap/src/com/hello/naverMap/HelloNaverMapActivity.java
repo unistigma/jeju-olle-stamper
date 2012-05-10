@@ -3,8 +3,10 @@ package com.hello.naverMap;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,8 +36,6 @@ public class HelloNaverMapActivity extends NMapActivity {
 	private static final String LOG_TAG = "HelloNaverMapActivity";
 	private static final boolean DEBUG = false;
 	
-	private static final NGeoPoint NMAP_LOCATION_DEFAULT = new NGeoPoint(126.819316, 33.314939);
-	private static final int NMAP_ZOOMLEVEL_DEFAULT = 11;
 	private static final int NMAP_VIEW_MODE_DEFAULT = NMapView.VIEW_MODE_HYBRID;
 	private static final boolean NMAP_TRAFFIC_MODE_DEFAULT = false;
 	private static final boolean NMAP_BICYCLE_MODE_DEFAULT = false;
@@ -68,7 +68,17 @@ public class HelloNaverMapActivity extends NMapActivity {
         
         mMapView = new NMapView(this);
         mMapView.setApiKey(NAVER_MAP_APIKEY);
-        setContentView(mMapView);
+        
+        ////////////////////////////
+        // create parent view to rotate map view
+        mMapContainerView = new MapContainerView(this);
+        mMapContainerView.addView(mMapView);
+
+        // set the activity content to the map view
+        setContentView(mMapContainerView);
+        ////////////////////////////
+        
+//        setContentView(mMapView);
         mMapView.setClickable(true);
         
         mMapViewerResourceProvider = new NMapViewerResourceProvider(this);
@@ -87,10 +97,10 @@ public class HelloNaverMapActivity extends NMapActivity {
         
         //2. 지도 위에 경로 그리기
 //        showPathDataPoints();
-        showPathDataPointsWithLoader();
+//        showPathDataPointsWithLoader();
         
         //3. 현재 위치 표시 및 나침반에 의한 지도 회전
-//        showLocationNCompass();
+        showLocationNCompass();
     }
     
     @Override
@@ -169,7 +179,7 @@ public class HelloNaverMapActivity extends NMapActivity {
      */
     public void showPathDataPointsWithLoader() {
     	GeoPointLoader gpl = new GeoPointLoader(this);
-    	List<PointData> tempPd = gpl.getCourseGeopoints(0);
+    	List<PointData> tempPd = gpl.getCourseGeopoints(1);
     	int pointCount = tempPd.size();
     	
     	// set path data points
@@ -199,7 +209,43 @@ public class HelloNaverMapActivity extends NMapActivity {
         mMapCompassManager = new NMapCompassManager(this);
         
         // create my location overlay
-        mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);	
+        mMyLocationOverlay = mOverlayManager.createMyLocationOverlay(mMapLocationManager, mMapCompassManager);
+        
+        if (mMyLocationOverlay != null) {
+			if (!mOverlayManager.hasOverlay(mMyLocationOverlay)) {
+				mOverlayManager.addOverlay(mMyLocationOverlay);
+			}
+			
+			mMapLocationManager.enableMyLocation(false);
+
+			if (mMapLocationManager.isMyLocationEnabled()) {
+
+				if (!mMapView.isAutoRotateEnabled()) {
+					mMyLocationOverlay.setCompassHeadingVisible(true);
+
+					mMapCompassManager.enableCompass();
+
+					mMapView.setAutoRotateEnabled(true, false);
+
+					mMapContainerView.requestLayout();
+				} else {
+					stopMyLocation();
+				}
+
+				mMapView.postInvalidate();
+			} else {
+				boolean isMyLocationEnabled = mMapLocationManager.enableMyLocation(false);
+				if (!isMyLocationEnabled) {
+					Toast.makeText(HelloNaverMapActivity.this, "Please enable a My Location source in system settings",
+						Toast.LENGTH_LONG).show();
+
+					Intent goToSettings = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+					startActivity(goToSettings);
+
+					return;
+				}
+			}
+		}
     }
     
     /* MapView State Change Listener*/
@@ -211,7 +257,6 @@ public class HelloNaverMapActivity extends NMapActivity {
 			if (errorInfo == null) { // success
 				// restore map view state such as map center position and zoom level.
 				restoreInstanceState();
-
 			} else { // fail
 				Log.e(LOG_TAG, "onFailedToInitializeWithError: " + errorInfo.toString());
 				Toast.makeText(HelloNaverMapActivity.this, errorInfo.toString(), Toast.LENGTH_LONG).show();
@@ -341,9 +386,6 @@ public class HelloNaverMapActivity extends NMapActivity {
     private void restoreInstanceState() {
 		mPreferences = getPreferences(MODE_PRIVATE);
 
-		int longitudeE6 = mPreferences.getInt(KEY_CENTER_LONGITUDE, NMAP_LOCATION_DEFAULT.getLongitudeE6());
-		int latitudeE6 = mPreferences.getInt(KEY_CENTER_LATITUDE, NMAP_LOCATION_DEFAULT.getLatitudeE6());
-		int level = mPreferences.getInt(KEY_ZOOM_LEVEL, NMAP_ZOOMLEVEL_DEFAULT);
 		int viewMode = mPreferences.getInt(KEY_VIEW_MODE, NMAP_VIEW_MODE_DEFAULT);
 		boolean trafficMode = mPreferences.getBoolean(KEY_TRAFFIC_MODE, NMAP_TRAFFIC_MODE_DEFAULT);
 		boolean bicycleMode = mPreferences.getBoolean(KEY_BICYCLE_MODE, NMAP_BICYCLE_MODE_DEFAULT);
