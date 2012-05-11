@@ -47,9 +47,7 @@ public class DbAdapter {
 	public static final String KEY_END_TIME = "end_time";	
 	public static final String KEY_LATITUDE = "latitude";
 	public static final String KEY_LONGITUDE = "longitude";
-	public static final String KEY_IS_START = "is_start";
-	public static final String KEY_IS_MID = "is_mid";
-	public static final String KEY_IS_END = "is_end";
+	public static final String KEY_WHICH_STAMP = "which_stamp";
  
     private static final String TAG = "DbAdapter";
     private DatabaseHelper mDbHelper;
@@ -58,39 +56,54 @@ public class DbAdapter {
     /**
      * Database creation sql statement
      */
-    private static final String DATABASE_CREATE_1 =
+    private static final String DB_CREATE_1 =
     		"CREATE TABLE olle_course_my_records ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
     		+ "course_no INTEGER NOT NULL, "
     		+ "finished INTEGER DEFAULT 0, "
 	      	+ "start_time TEXT DEFAULT NULL, "
 	      	+ "mid_time TEXT DEFAULT NULL, "
 	      	+ "end_time TEXT DEFAULT NULL );";
-    private static final String DATABASE_CREATE_2 =
+    private static final String DB_CREATE_2 =
     		"CREATE TABLE olle_course_geo_points ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
-    		+" course_no INTEGER NOT NULL,"
-		    +" latitude TEXT NOT NULL,"
-		    +" longitude TEXT NOT NULL,"
-		    +" is_start INTEGER DEFAULT 0,"
-		    +" is_mid INTEGER DEFAULT 0,"
-		    +" is_end INTEGER DEFAULT 0 );";
+    		+ " course_no INTEGER NOT NULL,"
+		    + " latitude TEXT NOT NULL,"
+		    + " longitude TEXT NOT NULL,"
+		    + " is_start INTEGER DEFAULT 0,"
+		    + " is_mid INTEGER DEFAULT 0,"
+		    + " is_end INTEGER DEFAULT 0 );";
+    private static final String DB_CREATE_3 =
+    		"CREATE TABLE olle_stamp_geo_points ( _id INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ "course_no INTEGER NOT NULL, "
+			+ "which_stamp INTEGER NOT NULL, "
+			+ "latitude TEXT NOT NULL, "
+			+ "longitude TEXT NOT NULL );";
 
     private static final String DATABASE_NAME = "jejuolle";
     private static final String DATABASE_TABLE_1 = "olle_course_my_records";
     private static final String DATABASE_TABLE_2 = "olle_course_geo_points";
+    private static final String DATABASE_TABLE_3 = "olle_stamp_geo_points";
     private static final int DATABASE_VERSION = 1;
 
     private final Context mCtx;
+    
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            mCtx = context;
         }
+        
+        private final Context mCtx;
+        private GeoPointLoader gploader;
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            db.execSQL(DATABASE_CREATE_1);
-            db.execSQL(DATABASE_CREATE_2);
+            db.execSQL(DB_CREATE_1);
+            db.execSQL(DB_CREATE_2);
+            db.execSQL(DB_CREATE_3);
+            
+            loadAllRecord(db);
         }
 
         @Override
@@ -99,6 +112,87 @@ public class DbAdapter {
                     + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS notes");
             onCreate(db);
+        }
+        
+        /**
+         * GeoPointLoader 객체를 생성하여 xml파일의 좌표를 로드한 후 DB 테이블에 INSERT.
+         * @param db
+         * @return
+         */
+        private boolean loadAllRecord(SQLiteDatabase db) {
+        	gploader = new GeoPointLoader(mCtx, GeoPointLoader.LOAD_TYPE_COURSE_AND_STAMP);
+        	
+        	loadMyRecord(db);
+        	loadGeoPoints(db);
+        	loadStampPoints(db);
+        	
+        	return true;
+        }
+     
+        /**
+         * INSERT TO olle_course_my_records
+         * @return
+         */
+        private boolean loadMyRecord(SQLiteDatabase db) {
+        	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
+        		ContentValues initialValues = new ContentValues();
+        		initialValues.put(KEY_COURSE_NO, courseNo);
+        		if(0 > db.insert(DATABASE_TABLE_1, null, initialValues))
+        			return false;
+        	}
+        	return true;
+        }
+        
+        /**
+         * INSERT TO olle_course_geo_points
+         * @return
+         */
+        private boolean loadGeoPoints(SQLiteDatabase db) {
+        	int coordsCount = 0;
+        	
+        	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
+        		List<MapPoint> specificCourseCoords = gploader.getCourseGeopoints(courseNo);
+        		coordsCount = specificCourseCoords.size();
+        		
+        		for(int i = 0; i < coordsCount; i++) {
+        			double latitude = specificCourseCoords.get(i).getMapPointGeoCoord().latitude;
+        			double longitude = specificCourseCoords.get(i).getMapPointGeoCoord().longitude;
+        			
+        			ContentValues initialValues = new ContentValues();
+            		initialValues.put(KEY_COURSE_NO, courseNo);
+            		initialValues.put(KEY_LATITUDE, latitude);
+            		initialValues.put(KEY_LONGITUDE, longitude);
+            		
+            		if(0 > db.insert(DATABASE_TABLE_2, null, initialValues))
+            			return false;
+        		}
+        	}
+        	return true;
+        }
+        
+        /**
+         * INSERT TO olle_stamp_geo_points
+         * @return
+         */
+        private boolean loadStampPoints(SQLiteDatabase db) {
+        	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
+        		List<MapPoint> specificStampCoords = gploader.getStampGeopoints(courseNo);
+        		
+        		for(int i = 0; i < 3; i++) {
+        			double latitude = specificStampCoords.get(i).getMapPointGeoCoord().latitude;
+        			double longitude = specificStampCoords.get(i).getMapPointGeoCoord().longitude;
+
+        			ContentValues initialValues = new ContentValues();
+            		initialValues.put(KEY_COURSE_NO, courseNo);
+            		initialValues.put(KEY_WHICH_STAMP, i);
+            		initialValues.put(KEY_LATITUDE, latitude);
+            		initialValues.put(KEY_LONGITUDE, longitude);
+            		
+            		if(0 > db.insert(DATABASE_TABLE_3, null, initialValues))
+            			return false;
+        		}
+        	}
+        	return true;
         }
     }
 
@@ -110,6 +204,7 @@ public class DbAdapter {
      */
     public DbAdapter(Context ctx) {
         this.mCtx = ctx;
+        
     }
 
     /**
@@ -124,73 +219,15 @@ public class DbAdapter {
     public DbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
+        
         return this;
     }
 
     public void close() {
         mDbHelper.close();
     }
-
-
-    /**
-     * Create a new note using the title and body provided. If the note is
-     * successfully created return the new rowId for that note, otherwise return
-     * a -1 to indicate failure.
-     * 
-     */
-//    public long createNote(String title, String body) {
-//        ContentValues initialValues = new ContentValues();
-//        initialValues.put(KEY_TITLE, title);
-//        initialValues.put(KEY_BODY, body);
-//
-//        return mDb.insert(DATABASE_TABLE, null, initialValues);
-//    }
-    /*
-     * INSERT INTO olle_course_my_records (course_no) VALUES 
-     * ('1'), ('2'), ('3'), ('4'), ('5'), ('6'), ('7'), ('8'), ('9'), ('10'), 
-	 * ('11'), ('12'), ('13'), ('14'), ('15'), ('16'), ('17');
-     */
-    public boolean createMyRecord() {
-    	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
-    		ContentValues initialValues = new ContentValues();
-    		initialValues.put(KEY_COURSE_NO, courseNo);
-    		if(0 > mDb.insert(DATABASE_TABLE_1, null, initialValues))
-    			return false;
-    	}
-    	return true;
-    }
     
-    public boolean createGeoPoints() {
-    	GeoPointLoader gploader = new GeoPointLoader(mCtx);
-    	int coordsCount = 0;
-    	
-    	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
-//    		coordsCount = gploader.getCourseGeopoints(courseNo).Coord.size();
-    		
-    		List<MapPoint> specificCourseCoords = gploader.getCourseGeopoints(courseNo);
-    		coordsCount = specificCourseCoords.size();
-    		
-    		for(int i = 0; i < coordsCount; i++) {
-//    			double latitude = gploader.getCourseGeopoints(courseNo).Coord.elementAt(0).getMapPointGeoCoord().latitude;
-//    			double longitude = gploader.getCourseGeopoints(courseNo).Coord.elementAt(0).getMapPointGeoCoord().longitude;
-    			double latitude = specificCourseCoords.get(i).getMapPointGeoCoord().latitude;
-    			double longitude = specificCourseCoords.get(i).getMapPointGeoCoord().longitude;
-    			
-    			ContentValues initialValues = new ContentValues();
-        		initialValues.put(KEY_COURSE_NO, courseNo);
-        		initialValues.put(KEY_LATITUDE, latitude);
-        		initialValues.put(KEY_LONGITUDE, longitude);
-        		if(i == 0)
-        			initialValues.put(KEY_IS_START, 1);
-        		else if(i == coordsCount - 1)
-        			initialValues.put(KEY_IS_END, 1);
-        		
-        		if(0 > mDb.insert(DATABASE_TABLE_2, null, initialValues))
-        			return false;
-    		}
-    	}
-    	return true;
-    }
+    
     
 
     /**
@@ -208,16 +245,35 @@ public class DbAdapter {
      * Return a Cursor over the list of all notes in the database
      * 
      */
-    //모든 코스의 코스번호와 완주여부를 반환
+
+    /**
+     * @return 모든 코스의 코스번호와 완주여부를 반환
+     */
     public Cursor fetchAllCourses() {
     	return mDb.query(DATABASE_TABLE_1, new String[] {KEY_COURSE_NO, KEY_FINISHED}, 
     			null, null, null, null, null);
     }
 
-    //특정코스의 좌표들을 반환
+  
+    /**
+     * @param courseNo 코스넘버
+     * @return 특정코스의 좌표들을 반환
+     */
     public Cursor fetchGeoPoints(int courseNo) {
     	return mDb.query(DATABASE_TABLE_2, new String[] {KEY_LATITUDE, KEY_LONGITUDE}, 
     			KEY_COURSE_NO + "=" + courseNo, null, null, null, null, null);
+    }
+    
+    /**
+     * @param courseNo 코스넘버
+     * @param stampNo 스탬프 종류(0: 시작, 1: 중간, 2: 끝)
+     * @return 특정코스의 특정스탬프(시작,중간,끝) 좌표를 반환
+     * @throws SQLException
+     */
+    public Cursor fetchStampPoint(int courseNo, int whichStamp) throws SQLException {
+    	return mDb.query(true, DATABASE_TABLE_3, new String[] {KEY_LATITUDE, KEY_LONGITUDE}, 
+    			KEY_COURSE_NO + "=" + courseNo + " AND " + KEY_WHICH_STAMP + "=" + whichStamp 
+    			, null, null, null, null, null);
     }
       
 
@@ -225,7 +281,13 @@ public class DbAdapter {
      * Return a Cursor positioned at the note that matches the given rowId
      * 
      */
-    //특정코스의 특정스탬프가 찍힌 시간을 반환
+    
+    /**
+     * @param courseNo 코스넘버
+     * @param stampNo 스탬프 종류(0: 시작, 1: 중간, 2: 끝)
+     * @return 특정코스의 특정스탬프가 찍힌 시간을 반환
+     * @throws SQLException
+     */
     public Cursor fetchStampedTime(int courseNo, int stampNo) throws SQLException {
     	String isWhen = "";
     	switch(stampNo) {
@@ -251,36 +313,20 @@ public class DbAdapter {
     	return mCursor;
     }
 
-    //특정코스의 특정스탬프(시작,중간,끝) 좌표를 반환
-    public Cursor fetchStampPoint(int courseNo, int stampNo) throws SQLException {
-    	String isWhat = "";
-    	switch(stampNo) {
-    	case 0 : 
-    		isWhat = KEY_IS_START;
-    		break;
-    	case 1 : 
-    		isWhat = KEY_IS_MID;
-    		break;
-    	case 2 : 
-    		isWhat = KEY_IS_END;
-    		break;
-    	default :
-    		break;
-    	}
-
-    	Cursor mCursor = mDb.query(true, DATABASE_TABLE_2, new String[] {KEY_LATITUDE, KEY_LONGITUDE}, 
-    			KEY_COURSE_NO + "=" + courseNo + " AND " + isWhat + "='1'", null, null, null, null, null);
-    	if (mCursor != null) {
-    		mCursor.moveToFirst();
-    	}
-    	return mCursor;
-    }
+    
 
     /**
      * Update 
      * 
-     */ 
-    //특정코스의 특정스탬프가 찍힌 시간을 업데이트
+     */
+    
+    /**
+     * 특정코스의 특정스탬프가 찍힌 시간을 업데이트
+     * @param courseNo 코스넘버
+     * @param stampNo 스탬프 종류(0: 시작, 1: 중간, 2: 끝)
+     * @param time 스탬프를 찍는 시간
+     * @return
+     */
     public boolean updateStampedTime(int courseNo, int stampNo, String time) {
     	String isWhen = "";
     	switch(stampNo) {
@@ -303,7 +349,11 @@ public class DbAdapter {
     	return mDb.update(DATABASE_TABLE_1, args, KEY_COURSE_NO + "=" + courseNo, null) > 0;
     }
     
-    //특정코스의 완주여부를 업데이트
+    /**
+     * 특정코스의 완주여부를 업데이트
+     * @param courseNo 코스넘버
+     * @return
+     */
     public boolean updateCourseFinished(int courseNo) {
     	Cursor mCursor = mDb.query(true, DATABASE_TABLE_1, new String[] {KEY_COURSE_NO}, 
     			KEY_COURSE_NO + "=" + courseNo + 

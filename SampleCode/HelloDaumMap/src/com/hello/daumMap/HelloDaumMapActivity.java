@@ -3,12 +3,15 @@ package com.hello.daumMap;
 
 import java.util.List;
 
+
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPoint.GeoCoordinate;
 import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +32,7 @@ MapView.POIItemEventListener
 	public static final String LOG_TAG = "DaumMap^_^";
 	
 	MapView mapView;
+	private DbAdapter mDbHelper;
 	
 	GeoPointLoader gpl;
 	
@@ -39,8 +43,12 @@ MapView.POIItemEventListener
          
         LinearLayout linearLayout = new LinearLayout(this);    
         mapView = new MapView(this);
-        gpl = new GeoPointLoader(this);	//많이 느리다...
-
+//        gpl = new GeoPointLoader(this);	//많이 느리다...
+        //////////////////////////////////////////DB HELPER
+        mDbHelper = new DbAdapter(this);
+        mDbHelper.open();
+        //////////////////////////////////////////
+        
         mapView.setDaumMapApiKey(DAUM_MAPS_APIKEY);
         mapView.setOpenAPIKeyAuthenticationResultListener(this);         
         mapView.setMapViewEventListener(this);       
@@ -261,7 +269,6 @@ MapView.POIItemEventListener
     	MapPolyline polyline4 = new MapPolyline(200); 
     	polyline4.setLineColor(Color.argb(128, 255, 255, 255));
 
-    	GeoPointLoader gpl = new GeoPointLoader(this);
     	List<List<MapPoint>> divided = gpl.getCourseGeopointsWithDiv(0, 4);
 
     	MapPoint[] mp = new MapPoint[divided.get(0).size()];
@@ -300,7 +307,6 @@ MapView.POIItemEventListener
     	MapPolyline polyline3 = new MapPolyline(200); 
     	polyline3.setLineColor(Color.argb(128, 0, 0, 255));
 
-    	GeoPointLoader gpl = new GeoPointLoader(this);
     	List<List<MapPoint>> divided = gpl.getCourseGeopointsWithAmount(0, 300);
 
     	MapPoint[] mp = new MapPoint[divided.get(0).size()];
@@ -342,6 +348,12 @@ MapView.POIItemEventListener
 		
 		menuItem = menu.getItem(1);
 		menuItem.setIcon(android.R.drawable.ic_menu_directions);
+		
+		menuItem = menu.getItem(2);
+		menuItem.setIcon(android.R.drawable.ic_menu_report_image);
+		
+		menuItem = menu.getItem(3);
+		menuItem.setIcon(android.R.drawable.ic_menu_manage);
 		
 		return true; 
 	}
@@ -419,6 +431,82 @@ MapView.POIItemEventListener
 			}
 			case R.id.submenu_course17: {
 				drawPolylineWithPoints(16);
+				return true;
+			}
+			case R.id.dbtest_course1: {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				alertDialog.setTitle("DB Test Course1");
+				
+				Cursor note = mDbHelper.fetchGeoPoints(1);
+	    		startManagingCursor(note);
+	    		
+	    		String result = "";
+	    		while(note.moveToNext()){
+	    			String dbData1 = note.getString(0);
+	    			String dbData2 = note.getString(1);
+	    			result += "(" + dbData1 + "," + dbData2 + ")";
+	    		}
+	    		
+				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
+				alertDialog.setPositiveButton("OK", null);
+				alertDialog.show();
+				return true;
+			}
+			case R.id.dbtest_course13: {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				alertDialog.setTitle("DB Test Course13");
+				
+				Cursor note = mDbHelper.fetchGeoPoints(13);
+	    		startManagingCursor(note);
+	    		
+	    		String result = "";
+	    		while(note.moveToNext()){
+	    			String dbData1 = note.getString(0);
+	    			String dbData2 = note.getString(1);
+	    			result += "(" + dbData1 + "," + dbData2 + ")";
+	    		}
+	    		
+				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
+				alertDialog.setPositiveButton("OK", null);
+				alertDialog.show();
+				return true;
+			}
+			case R.id.dbtest_stamp1: {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				alertDialog.setTitle("DB Test Stamp1");
+				
+				Cursor note = mDbHelper.fetchStampPoint(1, 0);
+	    		startManagingCursor(note);
+	    		
+	    		String result = "";
+	    		while(note.moveToNext()){
+	    			String dbData1 = note.getString(0);
+	    			String dbData2 = note.getString(1);
+	    			result += "(" + dbData1 + "," + dbData2 + ")";
+	    		}
+	    		
+				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
+				alertDialog.setPositiveButton("OK", null);
+				alertDialog.show();
+				return true;
+			}
+			case R.id.dbtest_stamp13: {
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+				alertDialog.setTitle("DB Test Stamp1");
+				
+				Cursor note = mDbHelper.fetchStampPoint(13, 0);
+	    		startManagingCursor(note);
+	    		
+	    		String result = "";
+	    		while(note.moveToNext()){
+	    			String dbData1 = note.getString(0);
+	    			String dbData2 = note.getString(1);
+	    			result += "(" + dbData1 + "," + dbData2 + ")";
+	    		}
+	    		
+				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
+				alertDialog.setPositiveButton("OK", null);
+				alertDialog.show();
 				return true;
 			}
 		}
