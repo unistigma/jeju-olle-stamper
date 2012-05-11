@@ -55,7 +55,6 @@ MapView.POIItemEventListener
         //3. 현위치, 나침반 모드 
         //----> onMapViewInitialized 이벤트에서 처리
         
-                
         linearLayout.addView(mapView);      
         setContentView(linearLayout);
     }
@@ -113,9 +112,7 @@ MapView.POIItemEventListener
 	}
 
 	public void onMapViewInitialized(MapView arg0) {
-		// TODO Auto-generated method stub
 		setCurrentLocationTracking();
-		
 	}
 
 	public void onMapViewLongPressed(MapView arg0, MapPoint arg1) {
@@ -223,7 +220,7 @@ MapView.POIItemEventListener
     
     /**
      * 좌표들을 한번에 가져와서 선을 그린다.
-     * 좌표가 많으면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
+     * 좌표가 510개를 초과하면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
      */
 	public void drawPolylineWithPoints() {
 		MapPolyline polyline1 = new MapPolyline(800); 
@@ -231,7 +228,7 @@ MapView.POIItemEventListener
 		polyline1.setLineColor(Color.argb(128, 0, 0, 255));
 
 		GeoPointLoader gpl = new GeoPointLoader(this);
-		List<MapPoint> tempList = gpl.getCourseGeopoints(1);
+		List<MapPoint> tempList = gpl.getCourseGeopoints(6);
 		MapPoint[] mp = new MapPoint[tempList.size()];
 		mp = (MapPoint[])tempList.toArray(mp);
 
@@ -242,7 +239,7 @@ MapView.POIItemEventListener
     
     /**
      * 좌표들을 특정 값으로 나누어 가져와서 선을 그린다.
-     * 좌표가 많으면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
+     * 좌표가 510개를 초과하면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
      */
     public void drawPolylineWithDivPoints() {
     	MapPolyline polyline1 = new MapPolyline(200);
