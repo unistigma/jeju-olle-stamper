@@ -12,6 +12,9 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,14 +29,18 @@ MapView.POIItemEventListener
 	public static final String LOG_TAG = "DaumMap^_^";
 	
 	MapView mapView;
+	
+	GeoPointLoader gpl;
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          
         LinearLayout linearLayout = new LinearLayout(this);    
-        mapView = new MapView(this);  
-                
+        mapView = new MapView(this);
+        gpl = new GeoPointLoader(this);	//많이 느리다...
+
         mapView.setDaumMapApiKey(DAUM_MAPS_APIKEY);
         mapView.setOpenAPIKeyAuthenticationResultListener(this);         
         mapView.setMapViewEventListener(this);       
@@ -48,7 +55,7 @@ MapView.POIItemEventListener
         
         //2. 선 그리기  
 //        drawPolylineWithOnePoint();
-//        drawPolylineWithPoints();
+//        drawPolylineWithPoints(7);
 //        drawPolylineWithDivPoints();
 //        drawPolylineWithAmountPoints();
         
@@ -112,7 +119,7 @@ MapView.POIItemEventListener
 	}
 
 	public void onMapViewInitialized(MapView arg0) {
-		setCurrentLocationTracking();
+//		setCurrentLocationTracking();
 	}
 
 	public void onMapViewLongPressed(MapView arg0, MapPoint arg1) {
@@ -222,18 +229,21 @@ MapView.POIItemEventListener
      * 좌표들을 한번에 가져와서 선을 그린다.
      * 좌표가 510개를 초과하면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
      */
-	public void drawPolylineWithPoints() {
-		MapPolyline polyline1 = new MapPolyline(800); 
-		polyline1.setTag(2000); 
-		polyline1.setLineColor(Color.argb(128, 0, 0, 255));
-
-		GeoPointLoader gpl = new GeoPointLoader(this);
-		List<MapPoint> tempList = gpl.getCourseGeopoints(6);
+	public void drawPolylineWithPoints(int courseNo) {
+		List<MapPoint> tempList = gpl.getCourseGeopoints(courseNo);
 		MapPoint[] mp = new MapPoint[tempList.size()];
 		mp = (MapPoint[])tempList.toArray(mp);
+		
+		MapPolyline existingPolyline = mapView.findPolylineByTag(777);
+		if (existingPolyline != null) {
+			mapView.removePolyline(existingPolyline);
+		}
+		MapPolyline polyline = new MapPolyline(tempList.size());
+		polyline.setTag(777); 
+		//polyline.setLineColor(Color.argb(128, 0, 0, 255));
 
-		polyline1.addPoints(mp);
-		mapView.addPolyline(polyline1);
+		polyline.addPoints(mp);
+		mapView.addPolyline(polyline);
 		mapView.fitMapViewAreaToShowAllPolylines();
 	}
     
@@ -315,12 +325,106 @@ MapView.POIItemEventListener
     
     /**
      * 현위치를 표시하고 나침반 모드를 설정.
-     * 현재 작동하지 않음 - 다음에 문의한 상태.
      */
     public void setCurrentLocationTracking() {
     	mapView.setCurrentLocationEventListener(this); 
     	mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
     }
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		MenuInflater inflater = getMenuInflater();		
+		inflater.inflate(R.menu.map_menu, menu);
+		
+		MenuItem menuItem = menu.getItem(0);
+		menuItem.setIcon(android.R.drawable.ic_menu_mylocation);
+		
+		menuItem = menu.getItem(1);
+		menuItem.setIcon(android.R.drawable.ic_menu_directions);
+		
+		return true; 
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			case R.id.menu_location: {
+				setCurrentLocationTracking();
+				return true;
+			}
+			case R.id.submenu_course1: {
+				drawPolylineWithPoints(0);
+				return true;
+			}
+			case R.id.submenu_course2: {
+				drawPolylineWithPoints(1);
+				return true;
+			}
+			case R.id.submenu_course3: {
+				drawPolylineWithPoints(2);
+				return true;
+			}
+			case R.id.submenu_course4: {
+				drawPolylineWithPoints(3);
+				return true;
+			}
+			case R.id.submenu_course5: {
+				drawPolylineWithPoints(4);
+				return true;
+			}
+			case R.id.submenu_course6: {
+				drawPolylineWithPoints(5);
+				return true;
+			}
+			case R.id.submenu_course7: {
+				drawPolylineWithPoints(6);
+				return true;
+			}
+			case R.id.submenu_course8: {
+				drawPolylineWithPoints(7);
+				return true;
+			}
+			case R.id.submenu_course9: {
+				drawPolylineWithPoints(8);
+				return true;
+			}
+			case R.id.submenu_course10: {
+				drawPolylineWithPoints(9);
+				return true;
+			}
+			case R.id.submenu_course11: {
+				drawPolylineWithPoints(10);
+				return true;
+			}
+			case R.id.submenu_course12: {
+				drawPolylineWithPoints(11);
+				return true;
+			}
+			case R.id.submenu_course13: {
+				drawPolylineWithPoints(12);
+				return true;
+			}
+			case R.id.submenu_course14: {
+				drawPolylineWithPoints(13);
+				return true;
+			}
+			case R.id.submenu_course15: {
+				drawPolylineWithPoints(14);
+				return true;
+			}
+			case R.id.submenu_course16: {
+				drawPolylineWithPoints(15);
+				return true;
+			}
+			case R.id.submenu_course17: {
+				drawPolylineWithPoints(16);
+				return true;
+			}
+		}
+		
+		return super.onOptionsItemSelected(item);
+	}
     
 }
 
