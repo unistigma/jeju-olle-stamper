@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+<string-array name="stamp1_lat">
+<item>33.477179</item>
+<item>33.451931</item>
+<item>33.432179</item>
+</string-array>
+
+<string-array name="stamp1_lng">
+<item>126.895889</item>
+<item>126.924016</item>
+<item>126.955889</item>
+</string-array>
+
+<string-array name="stamp2_lat">
+<item>33.451674</item> 
+<item>33.421674</item>
+<item>33.400524</item> 
+</string-array>
+
+<string-array name="stamp2_lng">
+<item>126.923680</item>
+<item>126.913680</item>
+<item>126.895361</item>
+</string-array>
+
+
+<string-array name="stamp3_lat"> 
+<item>33.399445</item> 
+<item>33.359445</item>
+<item>33.325798</item> 
+</string-array>
+
+<string-array name="stamp3_lng">
+<item>126.894795</item>
+<item>126.864795</item>
+<item>126.842637</item>
+</string-array>
+
+
+<string-array name="stamp4_lat">
+<item>33.325825</item> 
+<item>33.305825</item>
+<item>33.278280</item> 
+</string-array>
+
+<string-array name="stamp4_lng">
+<item>126.842287</item>
+<item>126.772287</item>
+<item>126.719024</item>
+</string-array>
+
+
+<string-array name="stamp5_lat">
+<item>33.278292</item> 
+<item>33.268292</item>
+<item>33.252244</item> 
+</string-array>
+
+<string-array name="stamp5_lng">
+<item>126.718497</item>
+<item>126.658497</item>
+<item>126.623281</item>
+</string-array>
+
+
+<string-array name="stamp6_lat">
+<item>33.251747</item> 
+<item>33.241747</item>
+<item>33.241107</item> 
+</string-array>
+
+<string-array name="stamp6_lng">
+<item>126.623402</item>
+<item>126.583402</item>
+<item>126.547625</item>
+</string-array>
+
+
+<string-array name="stamp7_lat">
+<item>33.241251</item> 
+<item>33.234252</item>
+<item>33.231251</item> 
+</string-array>
+
+<string-array name="stamp7_lng">
+<item>126.547909</item>
+<item>126.507909</item>
+<item>126.463334</item>
+</string-array>
+
+
+<string-array name="stamp8_lat">
+<item>33.234340</item> 
+<item>33.236340</item>
+<item>33.237285</item> 
+</string-array>
+
+<string-array name="stamp8_lng">
+<item>126.463344</item>
+<item>126.403344</item>
+<item>126.361752</item>
+</string-array>
+
+
+<string-array name="stamp9_lat">
+<item>33.236014</item> 
+<item>33.237014</item>
+<item>33.237714</item> 
+</string-array>
+
+<string-array name="stamp9_lng">
+<item>126.362753</item>
+<item>126.342753</item>
+<item>126.336717</item>
+</string-array>
+
+
+<string-array name="stamp10_lat">
+<item>33.237872</item> 
+<item>33.227872</item>
+<item>33.219152</item>
+</string-array>
+ 
+<string-array name="stamp10_lng">
+<item>126.336677</item>
+<item>126.306677</item>
+<item>126.252285</item>
+</string-array>
+
+
+<string-array name="stamp11_lat">
+<item>33.219281</item> 
+<item>33.259281</item>
+<item>33.273096</item>
+</string-array>
+
+<string-array name="stamp11_lng">
+<item>126.252321</item>
+<item>126.242321</item>
+<item>126.236434</item>
+</string-array>
+
+
+<string-array name="stamp12_lat">
+<item>33.273151</item> 
+<item>33.303151</item>
+<item>33.323702</item> 
+</string-array>
+
+<string-array name="stamp12_lng">
+<item>126.235953</item>
+<item>126.205953</item>
+<item>126.166991</item>
+</string-array>
+
+
+<string-array name="stamp13_lat">
+<item>33.323601</item> 
+<item>33.327601</item>
+<item>33.331972</item> 
+</string-array>
+
+<string-array name="stamp13_lng">
+<item>126.166802</item>
+<item>126.196802</item>
+<item>126.256315</item>
+</string-array>
+
+
+<string-array name="stamp14_lat">
+<item>33.332827</item> 
+<item>33.372827</item>
+<item>33.418934</item> 
+</string-array>
+
+<string-array name="stamp14_lng">
+<item>126.256429</item>
+<item>126.259429</item>
+<item>126.262387</item>
+</string-array>
+
+
+<string-array name="stamp15_lat">
+<item>33.419090</item> 
+<item>33.439090</item>
+<item>33.466717</item> 
+</string-array>
+
+<string-array name="stamp15_lng">
+<item>126.262529</item>
+<item>126.292529</item>
+<item>126.338317</item>
+</string-array>
+
+
+<string-array name="stamp16_lat">
+<item>33.466922</item> 
+<item>33.463922</item>
+<item>33.460941</item>  
+</string-array>
+
+<string-array name="stamp16_lng">
+<item>126.337767</item>
+<item>126.387767</item>
+<item>126.439182</item>
+</string-array>
+
+
+<string-array name="stamp17_lat">
+<item>33.461027</item>
+<item>33.483508</item> 
+<item>33.513508</item> 
+</string-array>
+
+<string-array name="stamp17_lng">
+<item>126.439270</item>
+<item>126.489270</item>
+<item>126.527286</item>
+</string-array>
+
+
+</resources>

@@ -40,6 +40,8 @@ import android.util.Log;
 public class DbAdapter {
 
 	public static final int ALL_COURSE_COUNT = 17;
+	
+	public static final String KEY_ID = "_id";
 	public static final String KEY_COURSE_NO = "course_no";
 	public static final String KEY_FINISHED = "finished";
 	public static final String KEY_START_TIME = "start_time";
@@ -95,7 +97,7 @@ public class DbAdapter {
         }
         
         private final Context mCtx;
-        private GeoPointLoader gploader;
+        
 
         @Override
         public void onCreate(SQLiteDatabase db) {
@@ -120,11 +122,11 @@ public class DbAdapter {
          * @return
          */
         private boolean loadAllRecord(SQLiteDatabase db) {
-        	gploader = new GeoPointLoader(mCtx, GeoPointLoader.LOAD_TYPE_COURSE_AND_STAMP);
+        	GeoPointLoader gploader = new GeoPointLoader(mCtx, GeoPointLoader.LOAD_TYPE_COURSE_AND_STAMP);
         	
         	loadMyRecord(db);
-        	loadGeoPoints(db);
-        	loadStampPoints(db);
+        	loadGeoPoints(db, gploader);
+        	loadStampPoints(db, gploader);
         	
         	return true;
         }
@@ -147,7 +149,7 @@ public class DbAdapter {
          * INSERT TO olle_course_geo_points
          * @return
          */
-        private boolean loadGeoPoints(SQLiteDatabase db) {
+        private boolean loadGeoPoints(SQLiteDatabase db, GeoPointLoader gploader) {
         	int coordsCount = 0;
         	
         	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
@@ -174,7 +176,7 @@ public class DbAdapter {
          * INSERT TO olle_stamp_geo_points
          * @return
          */
-        private boolean loadStampPoints(SQLiteDatabase db) {
+        private boolean loadStampPoints(SQLiteDatabase db, GeoPointLoader gploader) {
         	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
         		List<MapPoint> specificStampCoords = gploader.getStampGeopoints(courseNo);
         		
@@ -249,8 +251,8 @@ public class DbAdapter {
     /**
      * @return 모든 코스의 코스번호와 완주여부를 반환
      */
-    public Cursor fetchAllCourses() {
-    	return mDb.query(DATABASE_TABLE_1, new String[] {KEY_COURSE_NO, KEY_FINISHED}, 
+    public Cursor fetchMyRecords() {
+    	return mDb.query(DATABASE_TABLE_1, new String[] {KEY_ID, KEY_COURSE_NO, KEY_FINISHED}, 
     			null, null, null, null, null);
     }
 
@@ -260,7 +262,7 @@ public class DbAdapter {
      * @return 특정코스의 좌표들을 반환
      */
     public Cursor fetchGeoPoints(int courseNo) {
-    	return mDb.query(DATABASE_TABLE_2, new String[] {KEY_LATITUDE, KEY_LONGITUDE}, 
+    	return mDb.query(DATABASE_TABLE_2, new String[] {KEY_ID, KEY_LATITUDE, KEY_LONGITUDE}, 
     			KEY_COURSE_NO + "=" + courseNo, null, null, null, null, null);
     }
     
@@ -271,7 +273,7 @@ public class DbAdapter {
      * @throws SQLException
      */
     public Cursor fetchStampPoint(int courseNo, int whichStamp) throws SQLException {
-    	return mDb.query(true, DATABASE_TABLE_3, new String[] {KEY_LATITUDE, KEY_LONGITUDE}, 
+    	return mDb.query(true, DATABASE_TABLE_3, new String[] {KEY_ID, KEY_LATITUDE, KEY_LONGITUDE}, 
     			KEY_COURSE_NO + "=" + courseNo + " AND " + KEY_WHICH_STAMP + "=" + whichStamp 
     			, null, null, null, null, null);
     }

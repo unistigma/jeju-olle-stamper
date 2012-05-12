@@ -21,6 +21,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DbTabActivity" android:label="SubActivity_db"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
+        <activity android:name=".tabCourseDBActivity" android:label="SubActivity_db"></activity>
+        <activity android:name=".tabMyRecordDBActivity" android:label="SubActivity_db"></activity>
+        <activity android:name=".tabStampDBActivity" android:label="SubActivity_db"></activity>
+        
     </application>
 
 </manifest>

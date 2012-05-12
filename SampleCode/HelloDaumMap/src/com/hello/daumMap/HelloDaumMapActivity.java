@@ -11,6 +11,7 @@ import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -30,6 +31,8 @@ MapView.POIItemEventListener
 {
 	public static final String DAUM_MAPS_APIKEY = "59ecd91767ce681f0a6051aa7af6f03cf65e9f54";
 	public static final String LOG_TAG = "DaumMap^_^";
+	
+	private static final int ACTIVITY_DB_LIST = 0;
 	
 	MapView mapView;
 	private DbAdapter mDbHelper;
@@ -350,9 +353,6 @@ MapView.POIItemEventListener
 		menuItem.setIcon(android.R.drawable.ic_menu_directions);
 		
 		menuItem = menu.getItem(2);
-		menuItem.setIcon(android.R.drawable.ic_menu_report_image);
-		
-		menuItem = menu.getItem(3);
 		menuItem.setIcon(android.R.drawable.ic_menu_manage);
 		
 		return true; 
@@ -433,85 +433,41 @@ MapView.POIItemEventListener
 				drawPolylineWithPoints(16);
 				return true;
 			}
-			case R.id.dbtest_course1: {
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-				alertDialog.setTitle("DB Test Course1");
+			case R.id.menu_db: {
+////////////////////////////////////////DB SELECT한 값으로 dialog 생성
+//				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+//				alertDialog.setTitle("DB Test Course1");
+//				
+//				Cursor note = mDbHelper.fetchGeoPoints(1);
+//	    		startManagingCursor(note);
+//	    		
+//	    		String result = "";
+//	    		while(note.moveToNext()){
+//	    			String dbData1 = note.getString(0);
+//	    			String dbData2 = note.getString(1);
+//	    			result += "(" + dbData1 + "," + dbData2 + ")";
+//	    		}
+//	    		
+//				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
+//				alertDialog.setPositiveButton("OK", null);
+//				alertDialog.show();
+/////////////////////////////////////////////////////////////////////////////////////
 				
-				Cursor note = mDbHelper.fetchGeoPoints(1);
-	    		startManagingCursor(note);
-	    		
-	    		String result = "";
-	    		while(note.moveToNext()){
-	    			String dbData1 = note.getString(0);
-	    			String dbData2 = note.getString(1);
-	    			result += "(" + dbData1 + "," + dbData2 + ")";
-	    		}
-	    		
-				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
-				alertDialog.setPositiveButton("OK", null);
-				alertDialog.show();
-				return true;
-			}
-			case R.id.dbtest_course13: {
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-				alertDialog.setTitle("DB Test Course13");
-				
-				Cursor note = mDbHelper.fetchGeoPoints(13);
-	    		startManagingCursor(note);
-	    		
-	    		String result = "";
-	    		while(note.moveToNext()){
-	    			String dbData1 = note.getString(0);
-	    			String dbData2 = note.getString(1);
-	    			result += "(" + dbData1 + "," + dbData2 + ")";
-	    		}
-	    		
-				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
-				alertDialog.setPositiveButton("OK", null);
-				alertDialog.show();
-				return true;
-			}
-			case R.id.dbtest_stamp1: {
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-				alertDialog.setTitle("DB Test Stamp1");
-				
-				Cursor note = mDbHelper.fetchStampPoint(1, 0);
-	    		startManagingCursor(note);
-	    		
-	    		String result = "";
-	    		while(note.moveToNext()){
-	    			String dbData1 = note.getString(0);
-	    			String dbData2 = note.getString(1);
-	    			result += "(" + dbData1 + "," + dbData2 + ")";
-	    		}
-	    		
-				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
-				alertDialog.setPositiveButton("OK", null);
-				alertDialog.show();
-				return true;
-			}
-			case R.id.dbtest_stamp13: {
-				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-				alertDialog.setTitle("DB Test Stamp1");
-				
-				Cursor note = mDbHelper.fetchStampPoint(13, 0);
-	    		startManagingCursor(note);
-	    		
-	    		String result = "";
-	    		while(note.moveToNext()){
-	    			String dbData1 = note.getString(0);
-	    			String dbData2 = note.getString(1);
-	    			result += "(" + dbData1 + "," + dbData2 + ")";
-	    		}
-	    		
-				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
-				alertDialog.setPositiveButton("OK", null);
-				alertDialog.show();
+				////////////////////////////////////////////Activity 실행
+				Intent i = new Intent(this, DbTabActivity.class);
+		        i.putExtra(DbAdapter.KEY_COURSE_NO, 1);
+		        startActivityForResult(i, ACTIVITY_DB_LIST);
+				/////////////////////////////////////////////////////////////////////////////////////
 				return true;
 			}
 		}
-		
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// TODO Auto-generated method stub
+		super.onActivityResult(requestCode, resultCode, data);
 	}
     
 }
