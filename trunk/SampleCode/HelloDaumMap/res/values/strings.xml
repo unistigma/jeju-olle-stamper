@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, HelloDaumMapActivity!</string>
     <string name="app_name">HelloDaumMap</string>
+    <string name="no_dbdata">No Loaded DB Data...</string>
     
 </resources>
