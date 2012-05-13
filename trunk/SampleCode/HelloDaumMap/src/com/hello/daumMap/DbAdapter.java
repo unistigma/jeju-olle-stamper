@@ -256,7 +256,14 @@ public class DbAdapter {
     			null, null, null, null, null);
     }
 
-  
+    /**
+     * @return 모든코스의 모든좌표들을 반환
+     */
+    public Cursor fetchGeoPoints() {
+    	return mDb.query(DATABASE_TABLE_2, new String[] {KEY_ID, KEY_COURSE_NO, KEY_LATITUDE, KEY_LONGITUDE}, 
+    			null, null, null, null, null, null);
+    }
+    
     /**
      * @param courseNo 코스넘버
      * @return 특정코스의 좌표들을 반환
@@ -268,8 +275,19 @@ public class DbAdapter {
     
     /**
      * @param courseNo 코스넘버
+     * @return 특정코스의 특정스탬프 시작,중간,끝의 모든 좌표를 반환
+     * @throws SQLException
+     */
+    public Cursor fetchStampPoints(int courseNo) throws SQLException {
+    	return mDb.query(true, DATABASE_TABLE_3, new String[] {KEY_ID, KEY_LATITUDE, KEY_LONGITUDE}, 
+    			KEY_COURSE_NO + "=" + courseNo 
+    			, null, null, null, null, null);
+    }
+    
+    /**
+     * @param courseNo 코스넘버
      * @param stampNo 스탬프 종류(0: 시작, 1: 중간, 2: 끝)
-     * @return 특정코스의 특정스탬프(시작,중간,끝) 좌표를 반환
+     * @return 특정코스의 특정스탬프(시작,중간,끝 중 하나) 좌표를 반환
      * @throws SQLException
      */
     public Cursor fetchStampPoint(int courseNo, int whichStamp) throws SQLException {

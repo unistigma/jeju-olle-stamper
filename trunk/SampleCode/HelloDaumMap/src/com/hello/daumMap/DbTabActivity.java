@@ -54,7 +54,7 @@ public class DbTabActivity extends TabActivity {
     			res.getDrawable(R.drawable.ic_tab_stamps)).setContent(intent);    
     	tabHost.addTab(spec);
     	
-    	tabHost.setCurrentTab(2);
+    	tabHost.setCurrentTab(1);
     	/////////////////////////////////////////////////////////////////////////////////
 
 	}
