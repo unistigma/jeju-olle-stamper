@@ -45,27 +45,11 @@ public class tabStampDBActivity extends Activity {
 			////////////////////////////////
 			for (int j = 0; j < courseCursor.getCount(); j++) {
 
-				String coordsString = "";
-//				switch(j) {
-//				case 0: {
-//					coordsString = "시작: ";
-//					break;
-//				}
-//				case 1: {
-//					coordsString = "중간: ";
-//					break;
-//				}
-//				case 2: {
-//					coordsString = "끝: ";
-//					break;
-//				}
-//				}
-
 				Map<String, String> coords = new HashMap<String, String>();
 
 				////////////////////////////////DB
 				courseCursor.moveToNext();
-				coordsString += "lat:" + courseCursor.getString(1) + ", lng:" + courseCursor.getString(2);
+				String coordsString = "lat:" + courseCursor.getString(1) + ", lng:" + courseCursor.getString(2);
 				/////////////////////////////
 				coords.put("coords", coordsString);
 				children.add(coords);

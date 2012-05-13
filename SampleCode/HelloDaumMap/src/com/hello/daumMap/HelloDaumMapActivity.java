@@ -237,9 +237,10 @@ MapView.POIItemEventListener
 	}
     
     /**
-     * 좌표들을 한번에 가져와서 선을 그린다.
+     * XML파일에서 특정코스의 좌표들을 로드한 후 선을 그린다.
      * 좌표가 510개를 초과하면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
-     */
+	 * @param courseNo 코스번호
+	 */
 	public void drawPolylineWithPoints(int courseNo) {
 		List<MapPoint> tempList = gpl.getCourseGeopoints(courseNo);
 		MapPoint[] mp = new MapPoint[tempList.size()];
@@ -259,10 +260,11 @@ MapView.POIItemEventListener
 	}
     
     /**
-     * 좌표들을 특정 값으로 나누어 가져와서 선을 그린다.
+     * XML파일에서 특정코스의 좌표들을 특정 값으로 쪼개어 로드한 후 여러개의 polyline으로 선을 그린다.
      * 좌표가 510개를 초과하면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
+     * @param courseNo 코스번호
      */
-    public void drawPolylineWithDivPoints() {
+    public void drawPolylineWithDivPoints(int courseNo) {
     	MapPolyline polyline1 = new MapPolyline(200);
     	polyline1.setLineColor(Color.argb(128, 255, 0, 0));
     	MapPolyline polyline2 = new MapPolyline(200); 
@@ -272,7 +274,7 @@ MapView.POIItemEventListener
     	MapPolyline polyline4 = new MapPolyline(200); 
     	polyline4.setLineColor(Color.argb(128, 255, 255, 255));
 
-    	List<List<MapPoint>> divided = gpl.getCourseGeopointsWithDiv(0, 4);
+    	List<List<MapPoint>> divided = gpl.getCourseGeopointsWithDiv(courseNo, 4);
 
     	MapPoint[] mp = new MapPoint[divided.get(0).size()];
     	mp = (MapPoint[])divided.get(0).toArray(mp);
@@ -299,10 +301,11 @@ MapView.POIItemEventListener
     }
 
     /**
-     * 좌표들을 특정갯수를 가진 리스트로 나누어 가져와서 선을 그린다.
+     * XML파일에서 특정코스의 좌표들을 특정갯수를 가진 리스트로 나누어 로드한 후 여러개의 polyline으로 선을 그린다.
      * 좌표가 510개를 초과하면 fitMapViewAreaToShowAllPolylines() 호출시 JNI 오버플로우 발생함.
+     * @param courseNo 코스번호
      */
-    public void drawPolylineWithAmountPoints() {
+    public void drawPolylineWithAmountPoints(int courseNo) {
     	MapPolyline polyline1 = new MapPolyline(1000);
     	polyline1.setLineColor(Color.argb(128, 255, 0, 0));
     	MapPolyline polyline2 = new MapPolyline(200); 
@@ -310,7 +313,7 @@ MapView.POIItemEventListener
     	MapPolyline polyline3 = new MapPolyline(200); 
     	polyline3.setLineColor(Color.argb(128, 0, 0, 255));
 
-    	List<List<MapPoint>> divided = gpl.getCourseGeopointsWithAmount(0, 300);
+    	List<List<MapPoint>> divided = gpl.getCourseGeopointsWithAmount(courseNo, 300);
 
     	MapPoint[] mp = new MapPoint[divided.get(0).size()];
     	mp = (MapPoint[])divided.get(0).toArray(mp);
@@ -339,6 +342,94 @@ MapView.POIItemEventListener
     	mapView.setCurrentLocationEventListener(this); 
     	mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithHeading);
     }
+    
+    /**
+     * DB에서 해당코스의 모든좌표들을 SELECT한 후 지도에 그린다.
+     * @param courseNo 코스번호
+     */
+    public void drawCourseFromDB(int courseNo) {
+		Cursor note = mDbHelper.fetchGeoPoints(courseNo);
+		startManagingCursor(note);
+		
+		int coordsCount = note.getCount();
+		MapPoint[] mp = new MapPoint[coordsCount];
+		int addIndex = 0;
+		
+		while(note.moveToNext()){
+			mp[addIndex++] = MapPoint.mapPointWithGeoCoord(note.getDouble(1), note.getDouble(2));
+		}
+		
+		MapPolyline existingPolyline = mapView.findPolylineByTag(777);
+		if (existingPolyline != null) {
+			mapView.removePolyline(existingPolyline);
+		}
+		MapPolyline polyline = new MapPolyline(coordsCount);
+		polyline.setTag(777); 
+		//polyline.setLineColor(Color.argb(128, 0, 0, 255));
+
+		polyline.addPoints(mp);
+		mapView.addPolyline(polyline);
+		mapView.fitMapViewAreaToShowAllPolylines();
+    }
+    
+    public void drawStampPointFromDB(int courseNo) {
+    	
+    	Cursor note = mDbHelper.fetchStampPoints(courseNo);
+		startManagingCursor(note);
+		note.moveToNext();
+    	
+    	MapPOIItem existingPOIItemStart = mapView.findPOIItemByTag(778);
+		if (existingPOIItemStart != null) {
+			mapView.removePOIItem(existingPOIItemStart);
+		}
+		
+		MapPOIItem existingPOIItemMid = mapView.findPOIItemByTag(779);
+		if (existingPOIItemMid != null) {
+			mapView.removePOIItem(existingPOIItemMid);
+		}
+		
+		MapPOIItem existingPOIItemEnd = mapView.findPOIItemByTag(780);
+		if (existingPOIItemEnd != null) {
+			mapView.removePOIItem(existingPOIItemEnd);
+		}
+    	
+    	MapPOIItem poiItemStart = new MapPOIItem();
+		poiItemStart.setItemName("Start");
+		poiItemStart.setTag(778);
+		poiItemStart.setMapPoint(MapPoint.mapPointWithGeoCoord(note.getDouble(1), note.getDouble(2)));
+		poiItemStart.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+		poiItemStart.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+		poiItemStart.setShowCalloutBalloonOnTouch(false);
+		poiItemStart.setCustomImageResourceId(R.drawable.custom_poi_marker_start);
+		poiItemStart.setCustomImageAnchorPointOffset(new MapPOIItem.ImageOffset(29,2));
+		mapView.addPOIItem(poiItemStart);
+		
+		note.moveToNext();
+		
+		MapPOIItem poiItemMid = new MapPOIItem();
+		poiItemMid.setItemName("Mid");
+		poiItemMid.setTag(779);
+		poiItemMid.setMapPoint(MapPoint.mapPointWithGeoCoord(note.getDouble(1), note.getDouble(2)));
+		poiItemMid.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+		poiItemMid.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+		poiItemMid.setShowCalloutBalloonOnTouch(false);
+		poiItemMid.setCustomImageResourceId(R.drawable.custom_poi_marker);
+		poiItemMid.setCustomImageAnchorPointOffset(new MapPOIItem.ImageOffset(29,2));
+		mapView.addPOIItem(poiItemMid);
+		
+		note.moveToNext();
+		
+		MapPOIItem poiItemEnd = new MapPOIItem();
+		poiItemEnd.setItemName("End");
+		poiItemEnd.setTag(780);
+		poiItemEnd.setMapPoint(MapPoint.mapPointWithGeoCoord(note.getDouble(1), note.getDouble(2)));
+		poiItemEnd.setMarkerType(MapPOIItem.MarkerType.CustomImage);
+		poiItemEnd.setShowAnimationType(MapPOIItem.ShowAnimationType.SpringFromGround);
+		poiItemEnd.setShowCalloutBalloonOnTouch(false);
+		poiItemEnd.setCustomImageResourceId(R.drawable.custom_poi_marker_end);
+		poiItemEnd.setCustomImageAnchorPointOffset(new MapPOIItem.ImageOffset(29,2));
+		mapView.addPOIItem(poiItemEnd);
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -366,71 +457,88 @@ MapView.POIItemEventListener
 				return true;
 			}
 			case R.id.submenu_course1: {
-				drawPolylineWithPoints(0);
+				drawCourseFromDB(1);
+				drawStampPointFromDB(1);
 				return true;
 			}
 			case R.id.submenu_course2: {
-				drawPolylineWithPoints(1);
+				drawCourseFromDB(2);
+				drawStampPointFromDB(2);
 				return true;
 			}
 			case R.id.submenu_course3: {
-				drawPolylineWithPoints(2);
+				drawCourseFromDB(3);
+				drawStampPointFromDB(3);
 				return true;
 			}
 			case R.id.submenu_course4: {
-				drawPolylineWithPoints(3);
+				drawCourseFromDB(4);
+				drawStampPointFromDB(4);
 				return true;
 			}
 			case R.id.submenu_course5: {
-				drawPolylineWithPoints(4);
+				drawCourseFromDB(5);
+				drawStampPointFromDB(5);
 				return true;
 			}
 			case R.id.submenu_course6: {
-				drawPolylineWithPoints(5);
+				drawCourseFromDB(6);
+				drawStampPointFromDB(6);
 				return true;
 			}
 			case R.id.submenu_course7: {
-				drawPolylineWithPoints(6);
+				drawCourseFromDB(7);
+				drawStampPointFromDB(7);
 				return true;
 			}
 			case R.id.submenu_course8: {
-				drawPolylineWithPoints(7);
+				drawCourseFromDB(8);
+				drawStampPointFromDB(8);
 				return true;
 			}
 			case R.id.submenu_course9: {
-				drawPolylineWithPoints(8);
+				drawCourseFromDB(9);
+				drawStampPointFromDB(9);
 				return true;
 			}
 			case R.id.submenu_course10: {
-				drawPolylineWithPoints(9);
+				drawCourseFromDB(10);
+				drawStampPointFromDB(10);
 				return true;
 			}
 			case R.id.submenu_course11: {
-				drawPolylineWithPoints(10);
+				drawCourseFromDB(11);
+				drawStampPointFromDB(11);
 				return true;
 			}
 			case R.id.submenu_course12: {
-				drawPolylineWithPoints(11);
+				drawCourseFromDB(12);
+				drawStampPointFromDB(12);
 				return true;
 			}
 			case R.id.submenu_course13: {
-				drawPolylineWithPoints(12);
+				drawCourseFromDB(13);
+				drawStampPointFromDB(13);
 				return true;
 			}
 			case R.id.submenu_course14: {
-				drawPolylineWithPoints(13);
+				drawCourseFromDB(14);
+				drawStampPointFromDB(14);
 				return true;
 			}
 			case R.id.submenu_course15: {
-				drawPolylineWithPoints(14);
+				drawCourseFromDB(15);
+				drawStampPointFromDB(15);
 				return true;
 			}
 			case R.id.submenu_course16: {
-				drawPolylineWithPoints(15);
+				drawCourseFromDB(16);
+				drawStampPointFromDB(16);
 				return true;
 			}
 			case R.id.submenu_course17: {
-				drawPolylineWithPoints(16);
+				drawCourseFromDB(17);
+				drawStampPointFromDB(17);
 				return true;
 			}
 			case R.id.menu_db: {
