@@ -12,30 +12,12 @@ public class tabMyRecordDBActivity extends ListActivity {
 	
 	public void onCreate(Bundle savedInstanceState) {       
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.db_list);
+		setContentView(R.layout.db_myrecord_list);
 		
-		fillData();
+		setSimpleCursorAdapter();
 	}
 	
-	private void fillData() {
-		//////////////////////////////////DB SELECT
-		//mDbHelper = new DbAdapter(this);
-		//mDbHelper.open();
-		//
-		//for(int i = 1; i <= DbAdapter.ALL_COURSE_COUNT; i++) {
-		//Cursor note = mDbHelper.fetchGeoPoints(i);
-		//startManagingCursor(note);
-		//
-		//String result = "";
-		//while(note.moveToNext()){
-		//String dbData1 = note.getString(0);
-		//String dbData2 = note.getString(1);
-		//result += "(" + dbData1 + "," + dbData2 + ")";
-		//}
-		//}
-		////////////////////////////////////////	
-
-
+	private void setSimpleCursorAdapter() {
 		///////////////////////////////SIMPLE_CURSOR_ADAPTER		
 		// Get all of the rows from the database and create the item list
 		mDbHelper = new DbAdapter(this);
@@ -50,12 +32,7 @@ public class tabMyRecordDBActivity extends ListActivity {
 		int[] to = new int[]{R.id.text1, R.id.text2};
 
 		// Now create a simple cursor adapter and set it to display
-		SimpleCursorAdapter dbData = new SimpleCursorAdapter(this, R.layout.db_row, dataCursor, from, to);
+		SimpleCursorAdapter dbData = new SimpleCursorAdapter(this, R.layout.db_myrecord_row, dataCursor, from, to);
 		setListAdapter(dbData);
-		
-//		TextView tv = (ListView)findViewById(R.layout.db_row);
-//		String temp = tv.getText() + "코스";
-//		tv.setText(temp);
-//		//tv.append("코스");
 	}
 }
