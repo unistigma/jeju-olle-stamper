@@ -4,9 +4,8 @@ import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
-public class tabMyRecordDBActivity extends ListActivity {
+public class DBMyRecordSelectActivity extends ListActivity {
 	
 	private DbAdapter mDbHelper;
 	

@@ -11,9 +11,8 @@ import android.os.Bundle;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
-import android.widget.TextView;
 
-public class tabStampDBActivity extends Activity {
+public class DBStampSelectActivity extends Activity {
 	
 	ExpandableListView mList;
 	private DbAdapter mDbHelper;

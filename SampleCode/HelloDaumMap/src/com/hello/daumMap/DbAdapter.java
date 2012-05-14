@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Handler;
 import android.util.Log;
 
 /**
@@ -37,7 +38,7 @@ import android.util.Log;
  * of using a collection of inner classes (which is less scalable and not
  * recommended).
  */
-public class DbAdapter {
+public class DbAdapter extends Thread{
 
 	public static final int ALL_COURSE_COUNT = 17;
 	
@@ -87,6 +88,7 @@ public class DbAdapter {
     private static final int DATABASE_VERSION = 1;
 
     private final Context mCtx;
+    Handler mAfter;
     
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -101,9 +103,14 @@ public class DbAdapter {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+        	db.beginTransaction();
+        	
             db.execSQL(DB_CREATE_1);
             db.execSQL(DB_CREATE_2);
             db.execSQL(DB_CREATE_3);
+            
+            db.setTransactionSuccessful();
+            db.endTransaction();
             
             loadAllRecord(db);
         }
@@ -136,12 +143,18 @@ public class DbAdapter {
          * @return
          */
         private boolean loadMyRecord(SQLiteDatabase db) {
+        	
+        	db.beginTransaction();
+        	
         	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
         		ContentValues initialValues = new ContentValues();
         		initialValues.put(KEY_COURSE_NO, courseNo);
         		if(0 > db.insert(DATABASE_TABLE_1, null, initialValues))
         			return false;
         	}
+        	db.setTransactionSuccessful();
+        	db.endTransaction();
+        	
         	return true;
         }
         
@@ -151,6 +164,8 @@ public class DbAdapter {
          */
         private boolean loadGeoPoints(SQLiteDatabase db, GeoPointLoader gploader) {
         	int coordsCount = 0;
+        	
+        	db.beginTransaction();
         	
         	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
         		List<MapPoint> specificCourseCoords = gploader.getCourseGeopoints(courseNo);
@@ -169,6 +184,9 @@ public class DbAdapter {
             			return false;
         		}
         	}
+        	db.setTransactionSuccessful();
+        	db.endTransaction();
+        	
         	return true;
         }
         
@@ -177,6 +195,9 @@ public class DbAdapter {
          * @return
          */
         private boolean loadStampPoints(SQLiteDatabase db, GeoPointLoader gploader) {
+        	
+        	db.beginTransaction();
+        	
         	for(int courseNo = 1; courseNo <= ALL_COURSE_COUNT; courseNo++) {
         		List<MapPoint> specificStampCoords = gploader.getStampGeopoints(courseNo);
         		
@@ -194,6 +215,9 @@ public class DbAdapter {
             			return false;
         		}
         	}
+        	db.setTransactionSuccessful();
+        	db.endTransaction();
+        	
         	return true;
         }
     }
@@ -208,6 +232,11 @@ public class DbAdapter {
         this.mCtx = ctx;
         
     }
+    
+    public DbAdapter(Handler after, Context ctx) {
+		mAfter = after;
+		this.mCtx = ctx;
+	}
 
     /**
      * Open the notes database. If it cannot be opened, try to create a new
@@ -386,4 +415,11 @@ public class DbAdapter {
     	}
     	return false;
     }
+
+	@Override
+	public void run() {
+		open();
+		close();
+		super.run();
+	}
 }

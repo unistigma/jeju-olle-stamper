@@ -14,18 +14,21 @@
         android:label="@string/app_name" >
         <activity
             android:name=".HelloDaumMapActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name" 
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DbTabActivity" android:label="SubActivity_db"
+        <activity android:name=".TabManageActivity" android:label="SubActivity_db"
             android:theme="@android:style/Theme.NoTitleBar"></activity>
-        <activity android:name=".tabCourseDBActivity" android:label="SubActivity_db"></activity>
-        <activity android:name=".tabMyRecordDBActivity" android:label="SubActivity_db"></activity>
-        <activity android:name=".tabStampDBActivity" android:label="SubActivity_db"></activity>
+        <activity android:name=".DBCourseSelectActivity" android:label="SubActivity_db"></activity>
+        <activity android:name=".DBMyRecordSelectActivity" android:label="SubActivity_db"></activity>
+        <activity android:name=".DBStampSelectActivity" android:label="SubActivity_db"></activity>
+        <activity android:name=".BootActivity" android:label="TitleActivity"
+            android:theme="@android:style/Theme.NoTitleBar"></activity>
         
     </application>
 
