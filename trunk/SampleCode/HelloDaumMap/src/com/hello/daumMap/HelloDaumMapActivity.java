@@ -3,14 +3,12 @@ package com.hello.daumMap;
 
 import java.util.List;
 
-
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapPoint.GeoCoordinate;
 import net.daum.mf.map.api.MapPolyline;
 import net.daum.mf.map.api.MapView;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -33,24 +31,23 @@ MapView.POIItemEventListener
 	public static final String LOG_TAG = "DaumMap^_^";
 	
 	private static final int ACTIVITY_DB_LIST = 0;
+	private static final int ACTIVITY_BOOT = 1;
 	
 	MapView mapView;
 	private DbAdapter mDbHelper;
 	
 	GeoPointLoader gpl;
 	
+	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        createBootActivity();	//show title image and DB initialize, loading 
          
         LinearLayout linearLayout = new LinearLayout(this);    
         mapView = new MapView(this);
-//        gpl = new GeoPointLoader(this);	//많이 느리다...
-        //////////////////////////////////////////DB HELPER
-        mDbHelper = new DbAdapter(this);
-        mDbHelper.open();
-        //////////////////////////////////////////
         
         mapView.setDaumMapApiKey(DAUM_MAPS_APIKEY);
         mapView.setOpenAPIKeyAuthenticationResultListener(this);         
@@ -76,7 +73,7 @@ MapView.POIItemEventListener
         linearLayout.addView(mapView);      
         setContentView(linearLayout);
     }
-
+	
 	public void onDaumMapOpenAPIKeyAuthenticationResult(MapView arg0, int arg1,
 			String arg2) {
 		// TODO Auto-generated method stub
@@ -348,6 +345,9 @@ MapView.POIItemEventListener
      * @param courseNo 코스번호
      */
     public void drawCourseFromDB(int courseNo) {
+    	mDbHelper = new DbAdapter(this);
+    	mDbHelper.open();
+    	
 		Cursor note = mDbHelper.fetchGeoPoints(courseNo);
 		startManagingCursor(note);
 		
@@ -373,6 +373,8 @@ MapView.POIItemEventListener
     }
     
     public void drawStampPointFromDB(int courseNo) {
+    	mDbHelper = new DbAdapter(this);
+    	mDbHelper.open();
     	
     	Cursor note = mDbHelper.fetchStampPoints(courseNo);
 		startManagingCursor(note);
@@ -452,132 +454,102 @@ MapView.POIItemEventListener
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-			case R.id.menu_location: {
+			case R.id.menu_location: 
 				setCurrentLocationTracking();
 				return true;
-			}
-			case R.id.submenu_course1: {
+			case R.id.submenu_course1:
 				drawCourseFromDB(1);
 				drawStampPointFromDB(1);
 				return true;
-			}
-			case R.id.submenu_course2: {
+			case R.id.submenu_course2:
 				drawCourseFromDB(2);
 				drawStampPointFromDB(2);
 				return true;
-			}
-			case R.id.submenu_course3: {
+			case R.id.submenu_course3:
 				drawCourseFromDB(3);
 				drawStampPointFromDB(3);
 				return true;
-			}
-			case R.id.submenu_course4: {
+			case R.id.submenu_course4:
 				drawCourseFromDB(4);
 				drawStampPointFromDB(4);
 				return true;
-			}
-			case R.id.submenu_course5: {
+			case R.id.submenu_course5:
 				drawCourseFromDB(5);
 				drawStampPointFromDB(5);
 				return true;
-			}
-			case R.id.submenu_course6: {
+			case R.id.submenu_course6:
 				drawCourseFromDB(6);
 				drawStampPointFromDB(6);
 				return true;
-			}
-			case R.id.submenu_course7: {
+			case R.id.submenu_course7:
 				drawCourseFromDB(7);
 				drawStampPointFromDB(7);
 				return true;
-			}
-			case R.id.submenu_course8: {
+			case R.id.submenu_course8:
 				drawCourseFromDB(8);
 				drawStampPointFromDB(8);
 				return true;
-			}
-			case R.id.submenu_course9: {
+			case R.id.submenu_course9:
 				drawCourseFromDB(9);
 				drawStampPointFromDB(9);
 				return true;
-			}
-			case R.id.submenu_course10: {
+			case R.id.submenu_course10:
 				drawCourseFromDB(10);
 				drawStampPointFromDB(10);
 				return true;
-			}
-			case R.id.submenu_course11: {
+			case R.id.submenu_course11:
 				drawCourseFromDB(11);
 				drawStampPointFromDB(11);
 				return true;
-			}
-			case R.id.submenu_course12: {
+			case R.id.submenu_course12:
 				drawCourseFromDB(12);
 				drawStampPointFromDB(12);
 				return true;
-			}
-			case R.id.submenu_course13: {
+			case R.id.submenu_course13:
 				drawCourseFromDB(13);
 				drawStampPointFromDB(13);
 				return true;
-			}
-			case R.id.submenu_course14: {
+			case R.id.submenu_course14:
 				drawCourseFromDB(14);
 				drawStampPointFromDB(14);
 				return true;
-			}
-			case R.id.submenu_course15: {
+			case R.id.submenu_course15:
 				drawCourseFromDB(15);
 				drawStampPointFromDB(15);
 				return true;
-			}
-			case R.id.submenu_course16: {
+			case R.id.submenu_course16:
 				drawCourseFromDB(16);
 				drawStampPointFromDB(16);
 				return true;
-			}
-			case R.id.submenu_course17: {
+			case R.id.submenu_course17:
 				drawCourseFromDB(17);
 				drawStampPointFromDB(17);
 				return true;
-			}
-			case R.id.menu_db: {
-////////////////////////////////////////DB SELECT한 값으로 dialog 생성
-//				AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-//				alertDialog.setTitle("DB Test Course1");
-//				
-//				Cursor note = mDbHelper.fetchGeoPoints(1);
-//	    		startManagingCursor(note);
-//	    		
-//	    		String result = "";
-//	    		while(note.moveToNext()){
-//	    			String dbData1 = note.getString(0);
-//	    			String dbData2 = note.getString(1);
-//	    			result += "(" + dbData1 + "," + dbData2 + ")";
-//	    		}
-//	    		
-//				alertDialog.setMessage(String.format("컬럼갯수 : %d, 위도값 : %s", note.getColumnCount(), result));
-//				alertDialog.setPositiveButton("OK", null);
-//				alertDialog.show();
-/////////////////////////////////////////////////////////////////////////////////////
-				
-				////////////////////////////////////////////Activity 실행
-				Intent i = new Intent(this, DbTabActivity.class);
-		        i.putExtra(DbAdapter.KEY_COURSE_NO, 1);
-		        startActivityForResult(i, ACTIVITY_DB_LIST);
-				/////////////////////////////////////////////////////////////////////////////////////
+			case R.id.menu_db: 
+				Intent i = new Intent(this, TabManageActivity.class);
+				startActivityForResult(i, ACTIVITY_DB_LIST);
 				return true;
-			}
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
+
+		switch(requestCode) {
+		case ACTIVITY_BOOT:
+			if(resultCode == RESULT_OK) {
+				Toast.makeText(this, "Database insert success!", 0).show();
+			}
+			break;
+		}
+		
 		super.onActivityResult(requestCode, resultCode, data);
 	}
-    
+	
+	private void createBootActivity() {
+		Intent i = new Intent(this, BootActivity.class);
+		startActivityForResult(i, ACTIVITY_BOOT);
+	}
+	
 }
-
-

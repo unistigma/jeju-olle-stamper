@@ -20,7 +20,7 @@ import android.widget.ListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
-public class tabCourseDBActivity extends Activity {
+public class DBCourseSelectActivity extends Activity {
 
 	ExpandableListView mList;
 	private DbAdapter mDbHelper;
