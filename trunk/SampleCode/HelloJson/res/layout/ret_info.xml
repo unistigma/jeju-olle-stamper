@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+	
+	<com.hello.Json.RoundRectImageView
+		android:id="@+id/ImageView01"
+		android:layout_height="80px"
+		android:layout_width="80px"
+		android:background="@drawable/noimage" />
+
+	<LinearLayout
+	    android:id="@+id/LinearLayout01"
+	    android:layout_width="wrap_content"
+	    android:layout_height="78dp"
+	    android:layout_marginLeft="20px"
+	    android:layout_marginTop="10px"
+	    android:orientation="vertical" >
+
+		<TextView
+			android:text="@+id/TextView01"
+			android:id="@+id/TextView01"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="20px"></TextView>
+		
+			<TextView
+				android:text="Vicinity"
+				android:id="@+id/TextView_Vicinity"
+				android:layout_height="wrap_content"
+				android:gravity="left"
+				android:layout_width="wrap_content"
+				android:layout_alignParentLeft="true"></TextView>
+			<TextView
+				android:text="Phone"
+				android:id="@+id/TextView_Phone"
+				android:layout_height="wrap_content"
+				android:gravity="right"
+				android:layout_width="wrap_content"
+				android:layout_alignParentRight="true"
+				android:layout_marginRight="10px"></TextView>
+
+			<TextView
+			    android:text="URL"
+			    android:id="@+id/TextView_URL"
+			    android:layout_height="wrap_content"
+				android:gravity="right"
+				android:layout_width="wrap_content"
+				android:layout_alignParentRight="true" ></TextView>
+
+			    
+		
+	</LinearLayout>
+</LinearLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+<RelativeLayout android:id="@+id/rlayout_progress" android:layout_height="fill_parent" android:layout_width="fill_parent" android:layout_centerVertical="true" android:layout_centerHorizontal="true"><LinearLayout android:id="@+id/LinearLayout01"  android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_centerHorizontal="true"><ProgressBar android:id="@+id/ProgressBar01" android:layout_width="wrap_content" android:layout_height="wrap_content"></ProgressBar><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/tv_search_text" android:text="Search Data..." android:layout_marginLeft="10px" android:layout_marginTop="7px" android:textSize="25px"></TextView></LinearLayout>
+
+
+</RelativeLayout><ListView android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/result_list"></ListView>
+
+</RelativeLayout>
