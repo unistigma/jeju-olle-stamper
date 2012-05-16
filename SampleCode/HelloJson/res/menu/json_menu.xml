@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/menu_search"
+        android:title="검색">
+        <menu>
+            <item
+                android:id="@+id/submenu_land"
+                android:title="명소"/>
+            <item
+                android:id="@+id/submenu_food"
+                android:title="식당"/>
+            <item
+                android:id="@+id/submenu_inn"
+                android:title="숙소"/>
+        </menu>
+    </item>
+    
+</menu>

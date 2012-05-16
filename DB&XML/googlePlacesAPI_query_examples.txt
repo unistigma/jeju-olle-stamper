@@ -1,0 +1,367 @@
+
+<장소 검색 요청>
+
+명소(%EB%AA%85%EC%86%8C) 검색(5km) : https://maps.googleapis.com/maps/api/place/search/json?location=33.314939,126.819316&radius=5000&keyword=%EB%AA%85%EC%86%8C&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+명소 검색 (rank by distance) : https://maps.googleapis.com/maps/api/place/search/json?location=33.314939,126.819316&rankby=distance&keyword=%EB%AA%85%EC%86%8C&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+
+숙소(%EC%88%99%EC%86%8C) 검색(5km) : https://maps.googleapis.com/maps/api/place/search/json?location=33.314939,126.819316&radius=5000&keyword=%EC%88%99%EC%86%8C&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+숙소 검색 (rank by distance) : https://maps.googleapis.com/maps/api/place/search/json?location=33.314939,126.819316&rankby=distance&keyword=%EC%88%99%EC%86%8C&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+
+음식점(%EC%9D%8C%EC%8B%9D%EC%A0%90) 검색(2km) : https://maps.googleapis.com/maps/api/place/search/json?location=33.314939,126.819316&radius=2000&keyword=%EC%9D%8C%EC%8B%9D%EC%A0%90&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+음식점 검색 (rank by distance) : https://maps.googleapis.com/maps/api/place/search/json?location=33.314939,126.819316&rankby=distance&keyword=%EC%9D%8C%EC%8B%9D%EC%A0%90&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+
+<장소 검색 결과>
+
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3297880,
+               "lng" : 126.8149540
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "f0198d2c53116961426aabb03e062b71d243c1e1",
+         "name" : "제주허브동산",
+         "reference" : "CnRwAAAAFPvW3zfgYkMIZiMr0nGw2CXZWoX8r5oFN8VmT8upnZc-GKhiunGOrLcbpScJfu3uRLcO3JaNyqKKscz3C6IeEGiUJDVHlqSpMQJ34N5HzwNTtqM0svQLS9the2kwGpmKINbsGiKM75rGuJzmBB__DRIQRvHHqwNYOiXQFC_K-dT8DRoU4E30BVqvx8QPeXVg_rp4ox3vA9g",
+         "types" : [ "park", "establishment" ],
+         "vicinity" : "서귀포시 표선면 표선리 2608"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3225110,
+               "lng" : 126.8418680
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "5afd215c2e1f108c149877ff8e91f06419949126",
+         "name" : "제주민속촌박물관",
+         "reference" : "CoQBdQAAAPP_ghxCAScUp1E8I-OiElCVkEuIMgH_BbaObga8gt0i8_0vWibnHaswrE1rNwQwodgnw2RdeSvrvCFVlDZi-noITWN-I5IFTuayXfwUNMguwqvimlnEMc1V1p2T1qvRWmRIu91hYePBgmWf0aSxx8-tt3t5rcc1cLfDw9WhoLedEhB3-gaqpPlBr-DZddbI3vPNGhSKsqT52Z5M7RVrq6yi9_T73EDxKw",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 표선면 표선리 40-1"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3439810,
+               "lng" : 126.843590
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "66e68e7676c94f8993b8b1c85f79248825ce93a8",
+         "name" : "제주화석박물관",
+         "reference" : "CoQBcgAAAITkh3iK3u2wGUD0AIu9-xBv9nYlGaUZVxW7LbQIqQJumKZaDFf1ZW7Q5j_qCkXKoeQnLrih4lnnTPo2dPE7yWJcGs5zjq6GlHL8uKACnEVr52cQYz7K3bFZ9T5S_-ZEbnYh-fcrUQ9sx3IgbJA9-YeJi1DlfieNczmXG3nQmrUoEhAC_kFw3H5hlyQ7FsD--xMBGhQQkI9IjaaN32OTV8zKu0VYhVZ5bg",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 표선면 하천리 357-1"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3452860,
+               "lng" : 126.7953720
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "2317966b2bcf1406fee325a14c3f4680dc6e8e37",
+         "name" : "비엘바이크파크박물관(주)",
+         "reference" : "CoQBgAAAAOXNY9y785AEulYoH9SsVi3J7B2xboFIo1qW2POJdbNmRZQE2M0oAJDrEYuQT97PqfSyUkahJ01SLCdbhPrVfXS7bsHrp8-R38N7cdZ1nqQr2hAU63wC1CLyLs0bTHHpJafzamDwSVtjm8FRD8QgYTPCmBdkGosiPivTDnXtDWWbEhA0wGPTyhsa8RGM_zhpKchpGhTEkh_nRjZ8xIjPzbtiivvkEWzQeA",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 표선면 세화리 847"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3554230,
+               "lng" : 126.7716520
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "013a596e139c0ba32b18a9611d5eb67b6bb51194",
+         "name" : "자연사랑갤러리",
+         "reference" : "CoQBcgAAACqg7DOfahjyKp2ZGDcnzK8nuYZQlf9Zvk8Vb5cavawmEwEkKweqBNq9oQYIXxVnuQvWMaGxbHlI4_pTAE0lg8rtHKLneVSV317rtm0zOColvk4TJmR-gWyLM015nr43GJDWeeyQlRmg3nGi6cBjpxo6sFCOwQtQ2m9OLhJUeNJwEhBz_rpWqak1iV8S3gvCizP1GhRiADxygQ6lcQqxT51HZIUW8K31UQ",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 표선면 가시리 1920-2"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3815320,
+               "lng" : 126.8422830
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "1635ad7d1b6dd72e9cbae1ba59914514eb4f0e2f",
+         "name" : "미천굴",
+         "reference" : "CnRnAAAA9YOlNL9Y4kWm1cZgzJezIlggVUwyr_oWC4Jjkdb0QppknnWBLgWXhJh3H7tc5eAqcJVGMJwbl5fvyVf6udcFS96FiK5vvmd843u7KD0VCQ0kly71s1qujynWgs88yAkTlDAtY6_VdFQcuKu2jbqd6xIQ9OLzPVP634Pt1pKcwR0M8hoU5TPDhTNtH45ZLFd6kr4oP2bjbhU",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 성산읍 삼달리 1010"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.3878920,
+               "lng" : 126.8007590
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "af4570e41ac473f93218a8f60ca99b03d40437e0",
+         "name" : "일관헌",
+         "reference" : "CnRnAAAAYmgX6JOTlbgBM4_IV-xoz4u6Kr4qt2w8cTqFLUE-dERfqBJ9DwVtKnDomp7yQbY53StMVVP5_f9tR0IYuaTtkX5c0WO-FC7tHEbBMDJ16Wi1gaMu9tqi7-6WfcIRgJ6FAb1VTfFbVpfYM_yLkgcVSRIQYBsx997YnxSyzxWwpd48VRoUfvX051G6tYP68VHysHEjn_y9t6I",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 성읍리 표선면 882-1"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4032510,
+               "lng" : 126.7792330
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "03bbcb39d2e37c250f3e4f14ccae0ee4ee4f8f32",
+         "name" : "(주)이레",
+         "reference" : "CnRoAAAAp_zx8fsCkMl6qwhBR6LjzTvmJBGmqWdT3a5TGsKtpvNkmYP2DLLU0yVyeQ0NFZh15zmMo5b7xeTFFrpXbjDhe-QMrLQtLb73FWbInD55XbPHNZO59jv65FmmWi7bb8RGOV7L5ti0o4UTg2KMahvF9hIQs7ZeYp6u7Rv3sBvHqUuXHxoUeUWVxUMG7WqcKwieXDT_kzYBz00",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 표선면 성읍리 2684"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.274320,
+               "lng" : 126.7042710
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "31bfaac35d75986703d236b7e0e886cf61cfa086",
+         "name" : "신영영화박물관",
+         "reference" : "CoQBcwAAACsQGKPSdvoOBG7UA4qdRuRorTLNdwyBOmTsLcyMttbojXS-RHgRYgkdaGdphnRPdJsWGSI5g_g8m85LqToivWUerMS-aUWvO7YI7ROetqYLoF0jUVSB3-RYy2PhSy2GpdpP-rf2ZXEWmEmL5udiV5elrYkFKOJVYucqpfdQIZMdEhBWmv-lDr5GQnb2pGkYb96YGhQvj3rpNbYnSpLrtOvcc2HdjS1Fdg",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 남원읍 남원리"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4147790,
+               "lng" : 126.8949170
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "59e1c72bdf3393a33ea850f82bf33dd3b90c0ff8",
+         "name" : "혼인지",
+         "reference" : "CnRnAAAAbD79XHeD5KHYlBsoQJ_g1_x5PG6vyDe1dUCEyg5XXtpM6xEBwA-qgD8mPoL8C76NchaxEohQ5CNLftGQc7fTLfKMlTLXQ5AcdAGrhcSavA8IA5NxjCmc0w6DwsVM-R3TKuk8zDrN9DL6sLnxcnUnWBIQwPn_cQYwtAyFMlrPHf_7zBoUuG5B9BZvlnRk5Sq45EAVh0iu7i0",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 온평리 성산읍  1693"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4239460,
+               "lng" : 126.9304410
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "b3c87e6cc22681c61b035684b9cf256c0a61c3b2",
+         "name" : "섭지코지",
+         "rating" : 4.10,
+         "reference" : "CnRpAAAAYzo-AAsNZuhp5B5wckDylP4qWVoaACkhT38TyyPmrF9XE7J00TGvoKDOmTDmfabaC6v4RTWJBPjLQYZvYvXEyA7bnj8f5a0tPfN4IxnEIuJrN5JPv-FSpCf7IPgJMPnXZcibswYzFfWCx8ClaYddbxIQbsp07aD0oOdwkv72wwxHABoU9JSuBERjpBzKiRsx0c5ocdC_Ofk",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 성산읍 고성리 57번지"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4258340,
+               "lng" : 126.9314960
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "9d0906f36585e9e5041ce233a819a7d70fd856f4",
+         "name" : "올인하우스",
+         "reference" : "CnRtAAAAvXdaUCBPmChFdWDLzJxLFh_opLqrYUFBE0ng9U1f3o4B6B8x3lX7Y5DknuH4qd54VPJspGknvTPDTlwxLQ1mdmzlc6H4INFPKmiOfM0362u1n8slzaS3m954z_XyVma7iBZyaa4zQayBfNiuMBAUCBIQRKgTQL6B4zvR1DC4nHJdUxoU3W0Q3CmCFNjup9Wbvn8w9sudOTI",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 성산읍 고성리 57"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4337360,
+               "lng" : 126.92540
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "dd598210d652570806aff6b5420f4ef969a7f6fa",
+         "name" : "제주해양과학관",
+         "reference" : "CoQBcgAAAK1k43LhGNN1yM_Oml-YeV86OdOc-8U3s-kv0zCacF54GrA5bRvd0oHSHHsvC3PaxpX2t3iHf2GvHuixVwUwfGUH-P4Jtur0ltCo0JwW_SsMscs6SDDuZ9I50FFFyoxVysFBaQV6xR29Uc6MUktXScfJ6QRm9ZbZxp-7xBIiRajTEhD90fkxS4oOMvdS0d7V6-0PGhSeZNqlbkitsaHMkGYjapbXxtGRwA",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 성산읍 고성리 127-1"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.2694040,
+               "lng" : 126.6472210
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "00973a6d2849e837fbc7a900508f2eeb8b79cbf7",
+         "name" : "한일식물원",
+         "reference" : "CnRtAAAAdt4gSA8yT6SlcBj0hA2x3FRrnPD7WYlCdanp5-C2rU5-dIlNBGADDD9wPboQ9ZsdFHAezEF-qCn4dtxsO3TeKG3PKB05Y3xV_rDCz6lZAr0oHb7dJf7fqNBB2_tI59gQnVlo1yE9IX2xHK8bvhZNIBIQJwbWo00eBd2yco5n9agLeBoUhxVL4MSBOeF5nwb_BApzjMgUFUk",
+         "types" : [ "park", "establishment" ],
+         "vicinity" : "서귀포시 남원읍 신례리 7-1"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4468960,
+               "lng" : 126.9185280
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/art_gallery-71.png",
+         "id" : "38d1a175246b6d8fd3df319d9085b47b654bd987",
+         "name" : "그림세계",
+         "reference" : "CnRpAAAA6q0lnXwUH3-_mglodMiBF8O_PEuhkI-wLHm5x0KMeBfsY-DrjRP653ykUrGAwzSl7vJTXMxkgjDXMCYUjKGfbn9052p7xNxnLfZhP1pAlRAB-VSPjuyALijE57NxmpSuLSO722f9W4dfuuRVe3N95BIQxb3KxbbT_Z5BdS5MVxJGBxoU3CUzqnZzF6tQnH0CWMpRLD6jHuY",
+         "types" : [ "art_gallery", "store", "establishment" ],
+         "vicinity" : "서귀포시 성산읍 고성리 352-27"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4329410,
+               "lng" : 126.6930740
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "373e7d7f2c186cf771c792cef33d7459bf6f7b03",
+         "name" : "산굼부리",
+         "reference" : "CnRqAAAAGQUU1nB0SSrBNFsJnvB6NWofOV9NT8Yw41qLnEl7okWYT3gJDm-Cnm8hKRfMqC7GDK7UMSLboG4zsC1u9stwqxhyZzt-TbrLbl-GB4q13UMX6dsNkDyWNlKNs5cBKGo3EQwMqIIkgriokzwS3O_4zRIQkx4yWVRdG4qQ8uh-u1ypeBoUduXIOXNEhHkNRZ2eHALgLyoZGGI",
+         "types" : [ "establishment" ],
+         "vicinity" : "제주시 비자림로  조천읍 768"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4333850,
+               "lng" : 126.6744370
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "60067eb32db5fcee0ea84d5e544256516397f3a0",
+         "name" : "(주)제주미니미니랜드",
+         "rating" : 4.30,
+         "reference" : "CoQBewAAAAUIvexRC4w1hZ1vZERex4RW5aVDyEiEHPsQ9Z4aHQXHgea2Mtadj4jIqa_aGI1kQAR6Q5mhpSARl8r9pYv2jAvkC6vESL7eIgRccK3OQzq88yvpF2r9mLW5ak6H0RYnQiPKmhFjLjT1prHcP2n9QF2TpdalQrFoIC0B3b7APwwUEhDKg42--2FmPp_ADWo1kBQcGhQruqHEhvd9mNopasygYJeOzRKTNA",
+         "types" : [ "amusement_park", "establishment" ],
+         "vicinity" : "제주시 조천읍 교래리 산56-4"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.2538770,
+               "lng" : 126.6267090
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/generic_business-71.png",
+         "id" : "8d1ffb38a760de98ee1f82c6779b57885faf740d",
+         "name" : "쇠소깍",
+         "rating" : 4.80,
+         "reference" : "CnRnAAAAgWo8z6ZduUgqwcuAU_h74LO6OSpQU8zwC8Oql2Q8LH9J9ny3rU5iGq058slOYy2IWOTk7p4AQJWGLXP_MRPMilII6ixyVRpj4bWjCeCjjsNyFfV5grE2RxdLUNVOQlj0xvEmWer28oYRSt4wMg_gfxIQ1jQatieayOJQUMMJLuXuHBoUb-KvDksyMZRD_ELBZ3_pT4-IsZs",
+         "types" : [ "establishment" ],
+         "vicinity" : "서귀포시 하례리 남원읍 123"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.4775780,
+               "lng" : 126.9083580
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "c76e49b04ff191161675a5193f75aea76d58085a",
+         "name" : "성산포조가비박물관",
+         "reference" : "CoQBeAAAADmNJYiF6wuNOG2VX7OMeyU42i87FovekPP2DSEHne7x89X4ucSNlrfv_88eIvlWXbFARUQs-bEwYEU7-y3RWJoDo8xp8oSLnwIo5-LSVD_NI5UwaZvRSVKy9IriCysFH7iq5CEe-bGiu120WHltAH5RIBtZbyfCppl6fut4YjeVEhBvDX5SNr9s78rPVrlUpMfXGhRr6iCBoqFwjWvoBMBmRuWRqvVHbg",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 성산읍 시흥리 12-87"
+      },
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 33.2712910,
+               "lng" : 126.6070860
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+         "id" : "cec527a3a1b4981ad5390e5e6189d06442da0ff0",
+         "name" : "감귤박물관",
+         "reference" : "CnRsAAAAPsbmLtFvVZqWBKMdqPW2r2i6uT3Aa7aoxROHaub7Ovo7kA5s9CQdSm4IA7D90BSuHP8nXcxTIUTRNswQCCqcrpbGIylEWgeP5C0iTc9PN_P7EouesH_DhAtMhSYPYmx4osaVGV9CNK9Gpjczvk9KEBIQkGtTvh-WF8ihONGZP3t3UBoUo_B4jr9y1zPP7IBIPjl3HKUL6bc",
+         "types" : [ "museum", "establishment" ],
+         "vicinity" : "서귀포시 신효동 산1"
+      }
+   ],
+   "status" : "OK"
+}
+
+///////////////////////////////////////////////////////////////////////
+
+<장소 세부 검색>
+
+세부 검색 : https://maps.googleapis.com/maps/api/place/details/json?reference=CoQBdQAAAPP_ghxCAScUp1E8I-OiElCVkEuIMgH_BbaObga8gt0i8_0vWibnHaswrE1rNwQwodgnw2RdeSvrvCFVlDZi-noITWN-I5IFTuayXfwUNMguwqvimlnEMc1V1p2T1qvRWmRIu91hYePBgmWf0aSxx8-tt3t5rcc1cLfDw9WhoLedEhB3-gaqpPlBr-DZddbI3vPNGhSKsqT52Z5M7RVrq6yi9_T73EDxKw&sensor=true&key=AIzaSyD3NFSJbOhjUGJlW1cQdCopPqcOkSnUNWA
+
+<장소 세부 검색 결과>
+
+{
+   "html_attributions" : [],
+   "result" : {
+      "address_components" : [
+         {
+            "long_name" : "40-1",
+            "short_name" : "40-1",
+            "types" : [ "street_number" ]
+         },
+         {
+            "long_name" : "표선면 표선리",
+            "short_name" : "표선면 표선리",
+            "types" : [ "route" ]
+         },
+         {
+            "long_name" : "서귀포시",
+            "short_name" : "서귀포시",
+            "types" : [ "locality", "political" ]
+         },
+         {
+            "long_name" : "제주특별자치도",
+            "short_name" : "제주특별자치도",
+            "types" : [ "administrative_area_level_1", "political" ]
+         },
+         {
+            "long_name" : "KR",
+            "short_name" : "KR",
+            "types" : [ "country", "political" ]
+         },
+         {
+            "long_name" : "699-914",
+            "short_name" : "699-914",
+            "types" : [ "postal_code" ]
+         }
+      ],
+      "formatted_address" : "대한민국 제주특별자치도 서귀포시 표선면 표선리 40-1",
+      "formatted_phone_number" : "064-787-4501",
+      "geometry" : {
+         "location" : {
+            "lat" : 33.3225110,
+            "lng" : 126.8418680
+         }
+      },
+      "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/museum-71.png",
+      "id" : "5afd215c2e1f108c149877ff8e91f06419949126",
+      "international_phone_number" : "+82 64-787-4501",
+      "name" : "제주민속촌박물관",
+      "reference" : "CoQBdQAAAEnb-pe2iwsOQoTmVcGZCc30AjPuemc4xtFcRvLp4lSs1EI0yw6Uhr0JPF3Q-y7QFxvhs3_dAcP_2GVjWXuBMXq37L-UtgPpEKWz1hiUb6D88R9140U6GAEwWRnuqFqXKHWNrMU8rfmvFW-xmbgQJprJvjM4WB9njV7J0EQaFukSEhABOMiJXTZ-6-OmCDuHnn2WGhQrA6Ngah7yfR608N4fQvyW7d3fMQ",
+      "types" : [ "museum", "establishment" ],
+      "url" : "http://maps.google.com/maps/place?cid=523936506654881901",
+      "vicinity" : "서귀포시 표선면 표선리 40-1",
+      "website" : "http://www.jejufolk.com/"
+   },
+   "status" : "OK"
+}
