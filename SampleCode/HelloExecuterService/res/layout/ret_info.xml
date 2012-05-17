@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+
+	<LinearLayout
+	    android:id="@+id/LinearLayout01"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_marginLeft="20px"
+	    android:layout_marginTop="10px"
+	    android:orientation="vertical" >
+
+		<TextView
+		    android:id="@+id/TextView_MainValue"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:gravity="left"
+		    android:text="MainValue"
+		    android:textAppearance="?android:attr/textAppearanceLarge" >
+
+		</TextView>
+
+		<TextView
+		    android:id="@+id/TextView_SubValue1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:layout_marginRight="10px"
+		    android:gravity="right"
+		    android:text="SubValue1" >
+		</TextView>
+
+		<TextView
+		    android:id="@+id/TextView_SubValue2"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:gravity="right"
+		    android:text="SubValue2" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/TextView_SubValue3"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:gravity="right"
+		    android:text="SubValue3" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/TextView_SubValue4"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:gravity="right"
+		    android:text="SubValue4" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/TextView_SubValue5"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:gravity="right"
+		    android:text="SubValue5" >
+		</TextView>
+		
+		<TextView
+		    android:id="@+id/TextView_LastKeyValue"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentRight="true"
+		    android:gravity="right"
+		    android:text="LastKeyValue" >
+		</TextView>
+		
+	</LinearLayout>
+
+</LinearLayout>
