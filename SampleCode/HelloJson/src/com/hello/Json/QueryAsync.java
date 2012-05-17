@@ -49,27 +49,12 @@ public class QueryAsync extends QueryHandler implements Runnable {
 			
 			if((null != (results = agent.getSearchResults())) && results.size() > 0) {
 				for (PointOfInterest r : results) {
-					Log.i(TAG, "before pool execute");
 					pool.execute(new ImageExtractor(handler, r));
-					Log.i(TAG, "after pool execute");
 				}
 			} else {
 				pool.shutdown();
 				handler.sendMessage(handler.obtainMessage(QUERYASYNC_NODATA));
 			}
-//			int counter = 0;
-//			while (alive && (counter < LocalAgent.POI_LIMIT)
-//						 && ((results = agent.getSearchResults()) !=  null)
-//						 && results.size() > 0) {				
-//				for (PointOfInterest r : results) {
-//					pool.execute(new ImageExtractor(handler, r));
-//					counter++;
-//				}
-//			}
-//			if (counter == 0) {
-//				pool.shutdown();
-//				handler.sendMessage(handler.obtainMessage(QUERYASYNC_NODATA));
-//			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,7 +75,6 @@ public class QueryAsync extends QueryHandler implements Runnable {
 
 		// @Override
 		public void run() {
-			Log.i(TAG, "ImageExtractor Start");
 			URL url = poi.getPhotoUrl();
 			if (url != null) {
 				try {
@@ -110,11 +94,7 @@ public class QueryAsync extends QueryHandler implements Runnable {
 				poi.setDrawable(getContext().getResources().getDrawable(
 						R.drawable.noimage));
 			}
-			if(handler.sendMessage(handler.obtainMessage(POI_DATA, poi)))
-				Log.i(TAG, "sendMessage Success!!");
-			else
-				Log.i(TAG, "sendMessage Failed!!");
-			Log.i(TAG, "ImageExtractor Finished");
+			handler.sendMessage(handler.obtainMessage(POI_DATA, poi));
 		}
 	}
 }

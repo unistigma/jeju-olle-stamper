@@ -4,6 +4,7 @@ package com.hello.Json;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -49,7 +50,6 @@ public class HelloJsonActivity extends Activity {
 	boolean isActivated = false;
 	
 	private RelativeLayout progressLayout;
-	private QueryAsync queryAsync;
 	private ListView resultList;
 	private ResultAdapter adapter;
 	
@@ -58,15 +58,13 @@ public class HelloJsonActivity extends Activity {
 
 			switch (msg.what) {
 			case QueryAsync.POI_DATA:
-				Log.w(TAG , "handleMessage POI_DATA start");
 				if (!isActivated && items.size() > 1) {
 					showResultList();
-					Log.w(TAG , "handleMessage POI_DATA mid");
 				}
 				PointOfInterest item = (PointOfInterest) (msg.obj);
 				items.add(item);
+				Log.w(TAG, "handleMessage POI_DATA - item: " + item.getName());
 				adapter.notifyDataSetChanged();
-				Log.w(TAG , "handleMessage POI_DATA end");
 				break;
 			case QueryAsync.QUERYASYNC_ERROR:
 				showDialog(DIALOG_INTERNET_ERROR);
@@ -139,8 +137,7 @@ public class HelloJsonActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        loadGps();
-        currentLocation = getLocation();
+        readyGps();
         adapter = new ResultAdapter(this);
         
         progressLayout = (RelativeLayout) findViewById(R.id.rlayout_progress);
@@ -159,7 +156,7 @@ public class HelloJsonActivity extends Activity {
 		return super.onCreateOptionsMenu(menu);
 	}
 	
-	public void loadGps() {
+	private void readyGps() {
     	Log.w(TAG , "loadGps" );
     	locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
     	
@@ -171,9 +168,21 @@ public class HelloJsonActivity extends Activity {
     	criteria.setSpeedRequired(false);					//속도
     	criteria.setCostAllowed(true);						//위치 정보를 얻어 오는데 들어가는 금전적 비용
     	provider = locationManager.getBestProvider(criteria, true);
-    	listener = new GpsLocationListener();
-    	locationManager.requestLocationUpdates(provider, 1000, 5, listener);
     }
+	
+	private void turnOnGpsListener() {
+		if (listener == null) {
+			listener = new GpsLocationListener();
+			locationManager.requestLocationUpdates(provider, 1000, 5, listener);
+		}
+	}
+	
+	private void turnOffGpsListener() {
+		if (listener != null) {
+			locationManager.removeUpdates(listener);
+			listener = null;
+		}
+	}
 	
 	private class GpsLocationListener implements LocationListener {
 
@@ -206,15 +215,26 @@ public class HelloJsonActivity extends Activity {
 	private void showResultList() {
 		progressLayout.setVisibility(View.GONE);
 		resultList.setVisibility(View.VISIBLE);
+		turnOffGpsListener();
 
 		isActivated = true;
 	}
 	
+	private void clearResultList() {
+		if(items.size() > 0) {
+			items.clear();
+			isActivated = false;
+		}
+	}
+	
 	private void startSeach(String keyword) {
-		queryAsync = new QueryAsync(getBaseContext(), currentLocation, keyword, handler);
+		turnOnGpsListener();
+		currentLocation = getLocation();
+		clearResultList();
+		
+		QueryAsync queryAsync = new QueryAsync(getBaseContext(), currentLocation, keyword, handler);
 		new Thread(queryAsync).start();
 
-		//progressLayout = (RelativeLayout) findViewById(R.id.rlayout_progress);
 		progressLayout.setVisibility(View.VISIBLE);
 		resultList = (ListView) findViewById(R.id.result_list);
 		resultList.setVisibility(View.GONE);
@@ -236,9 +256,11 @@ public class HelloJsonActivity extends Activity {
 			Toast.makeText(this, "관광명소를 선택하였습니다", 0).show();
 			return true;
 		case R.id.submenu_food:
+			startSeach("음식점");
 			Toast.makeText(this, "음식점을 선택하였습니다", 0).show();
 			return true;
 		case R.id.submenu_inn:
+			startSeach("숙소");
 			Toast.makeText(this, "숙소를 선택하였습니다", 0).show();
 			return true;
 		}
@@ -285,5 +307,16 @@ public class HelloJsonActivity extends Activity {
 
 		Log.i(TAG, itemDetail.toString() + " Item Detail");
 		Log.i(TAG, String.valueOf(currentLocation.distanceTo(items.get(position).getLocation())) + " Between current and selecting item");
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		turnOffGpsListener();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
 	}
 }
