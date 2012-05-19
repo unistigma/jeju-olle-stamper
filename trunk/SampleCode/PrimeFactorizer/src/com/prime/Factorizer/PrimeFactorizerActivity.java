@@ -49,8 +49,9 @@ public class PrimeFactorizerActivity extends Activity {
     	if(0 == tv.getText().length()) {
     		Toast.makeText(this, "숫자를 입력해주세요", 1).show();
     	} else {
-        	
+        	//0. 입력값 받음 & 초기화
     		inputNumber = Long.parseLong(tv.getText().toString());
+    		initialize();
     		
     		//1. 사용자가 입력한 수의 제곱근을 구한다.
     		int squareR = (int)(Math.sqrt(inputNumber));
@@ -63,11 +64,21 @@ public class PrimeFactorizerActivity extends Activity {
         	createPrimeSet();
         	searchPrimeFactor();
         	
+        	//4. 결과값 출력
+        	String primeFactors = "";
         	for(long r : primeFactor) {
 	        	Log.i("primeFactor : ", Long.toString(r));
+	        	primeFactors += Long.toString(r) + ",";
         	}
+        	TextView tvResult = (TextView) findViewById(R.id.resultValue);
+        	tvResult.setText(primeFactors);
     	}
 	}
+    public void initialize() {
+    	primeNumbers = null;
+    	primeSet.clear();
+    	primeFactor.clear();
+    }
     
     public void searchPrimeFactor() {
     	primeFactor.add(divideTry(inputNumber));
@@ -103,7 +114,6 @@ public class PrimeFactorizerActivity extends Activity {
     	
     	//4. 모든 홀수를 대상으로 소수인지 판별.
     	moreSievePrimeNumbers();
-    	
     }
     
     public boolean isItPrimeNumber(int expected) {    	
